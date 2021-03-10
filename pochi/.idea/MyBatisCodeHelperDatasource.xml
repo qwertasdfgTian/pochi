@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MyBatisCodeHelperDatasource">
+    <option name="projectProfile">
+      <ProjectProfile>
+        <option name="addSerializeUid" value="true" />
+        <option name="generateService" value="true" />
+        <option name="generateServiceInterface" value="true" />
+        <option name="javaMapperPackage" value="com.lt.mapper" />
+        <option name="javaMapperPath" value="E:\程序设计\毕业设计\pochi\pochi-commodity\commodity-mapper\src\main\java" />
+        <option name="javaModelPackage" value="com.lt.pojo" />
+        <option name="javaModelPath" value="$PROJECT_DIR$/pochi-commodity/commodity-domain/src/main/java" />
+        <option name="lastDatabaseCrudChooseModuleName" value="commodity-domain" />
+        <option name="lombokAllArgConstructor" value="true" />
+        <option name="lombokDataAnnotation" value="true" />
+        <option name="lombokNoArgsConstructor" value="true" />
+        <option name="moduleNameToPackageAndPathMap">
+          <map>
+            <entry key="commodity-domain">
+              <value>
+                <UserPackageAndPathInfoByModule>
+                  <option name="javaMapperPackage" value="com.lt.mapper" />
+                  <option name="javaMapperPath" value="E:\程序设计\毕业设计\pochi\pochi-commodity\commodity-mapper\src\main\java" />
+                  <option name="javaModelPacakge" value="com.lt.pojo" />
+                  <option name="javaModelPath" value="$PROJECT_DIR$/pochi-commodity/commodity-domain/src/main/java" />
+                  <option name="javaServiceInterfacePackage" value="com.lt.service.impl" />
+                  <option name="javaServiceInterfacePath" value="E:\程序设计\毕业设计\pochi\pochi-commodity\commodity-api\src\main\java" />
+                  <option name="javaServicePackage" value="com.lt.service.impl" />
+                  <option name="javaServicePath" value="E:\程序设计\毕业设计\pochi\pochi-commodity\commodity-service\src\main\java" />
+                  <option name="xmlPackage" value="mapper" />
+                  <option name="xmlPath" value="E:\程序设计\毕业设计\pochi\pochi-commodity\commodity-mapper\src\main\resources" />
+                </UserPackageAndPathInfoByModule>
+              </value>
+            </entry>
+            <entry key="marketing-domain">
+              <value>
+                <UserPackageAndPathInfoByModule>
+                  <option name="javaMapperPackage" value="com.lt.mapper" />
+                  <option name="javaMapperPath" value="E:\程序设计\毕业设计\pochi\pochi-marketing\marketing-mapper\src\main\java" />
+                  <option name="javaModelPacakge" value="com.lt.pojo" />
+                  <option name="javaModelPath" value="E:\程序设计\毕业设计\pochi\pochi-marketing\marketing-domain\src\main\java" />
+                  <option name="javaServiceInterfacePackage" value="com.lt.service" />
+                  <option name="javaServiceInterfacePath" value="E:\程序设计\毕业设计\pochi\pochi-marketing\marketing-api\src\main\java" />
+                  <option name="javaServicePackage" value="com.lt.service.impl" />
+                  <option name="javaServicePath" value="E:\程序设计\毕业设计\pochi\pochi-marketing\marketing-service\src\main\java" />
+                  <option name="xmlPackage" value="mapper" />
+                  <option name="xmlPath" value="E:\程序设计\毕业设计\pochi\pochi-marketing\marketing-mapper\src\main\resources" />
+                </UserPackageAndPathInfoByModule>
+              </value>
+            </entry>
+            <entry key="pochi">
+              <value>
+                <UserPackageAndPathInfoByModule>
+                  <option name="javaMapperPackage" value="com.lt.mapper" />
+                  <option name="javaMapperPath" value="E:\程序设计\毕业设计\pochi\pochi-system\system-mapper\src\main\java" />
+                  <option name="javaModelPacakge" value="com.lt.pojo" />
+                  <option name="javaModelPath" value="E:\程序设计\毕业设计\pochi\pochi-system\system-domain\src\main\java" />
+                  <option name="javaServiceInterfacePackage" value="com.lt.service" />
+                  <option name="javaServiceInterfacePath" value="E:\程序设计\毕业设计\pochi\pochi-system\system-api\src\main\java" />
+                  <option name="javaServicePackage" value="com.lt.service.impl" />
+                  <option name="javaServicePath" value="E:\程序设计\毕业设计\pochi\pochi-system\system-service\src\main\java" />
+                  <option name="xmlPackage" value="mapper" />
+                  <option name="xmlPath" value="E:\程序设计\毕业设计\pochi\pochi-system\system-mapper\src\main\resources" />
+                </UserPackageAndPathInfoByModule>
+              </value>
+            </entry>
+            <entry key="system-domain">
+              <value>
+                <UserPackageAndPathInfoByModule>
+                  <option name="javaMapperPackage" value="com.lt.mapper" />
+                  <option name="javaMapperPath" value="E:\程序设计\毕业设计\pochi\pochi-system\system-mapper\src\main\java" />
+                  <option name="javaModelPacakge" value="com.lt.pojo" />
+                  <option name="javaModelPath" value="E:\程序设计\毕业设计\pochi\pochi-system\system-domain\src\main\java" />
+                  <option name="javaServiceInterfacePackage" value="com.lt.service" />
+                  <option name="javaServiceInterfacePath" value="E:\程序设计\毕业设计\pochi\pochi-system\system-api\src\main\java" />
+                  <option name="javaServicePackage" value="com.lt.service.impl" />
+                  <option name="javaServicePath" value="E:\程序设计\毕业设计\pochi\pochi-system\system-service\src\main\java" />
+                  <option name="xmlPackage" value="mapper" />
+                  <option name="xmlPath" value="E:\程序设计\毕业设计\pochi\pochi-system\system-mapper\src\main\resources" />
+                </UserPackageAndPathInfoByModule>
+              </value>
+            </entry>
+          </map>
+        </option>
+        <option name="tableGenerateConfigs">
+          <map>
+            <entry key="pochi:mg_shop_product_history">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="MgShopProductHistory" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:mg_sys_log">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="SysLog" />
+                  <option name="moduleName" value="pochi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_brand">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="ShopBrand" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_brand_category">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="ShopBrandCategory" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_cart_item">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="ShopCartItem" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_coupon">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="ShopCoupon" />
+                  <option name="moduleName" value="marketing-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_coupon_category">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="ShopCouponCategory" />
+                  <option name="moduleName" value="marketing-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_coupon_history">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="ShopCouponHistory" />
+                  <option name="moduleName" value="marketing-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_coupon_product">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="ShopCouponProduct" />
+                  <option name="moduleName" value="marketing-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_order">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="ShopOrder" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_order_history">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="ShopOrderHistory" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_order_item">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="ShopOrderItem" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_order_pay">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="ShopOrderPay" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_order_return_apply">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="ShopOrderReturnApply" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_pack">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="ShopPack" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_product">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="ShopProduct" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_product_category">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="ShopProductCategory" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_product_pack">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="ShopProductPack" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_product_statistic">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="ShopProductStatistic" />
+                  <option name="moduleName" value="commodity-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_user">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="ShopUser" />
+                  <option name="moduleName" value="system-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_user_address">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="ShopUserAddress" />
+                  <option name="moduleName" value="system-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:shop_user_statistic">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="ShopUserStatistic" />
+                  <option name="moduleName" value="system-domain" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:sys_banner">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="SysBanner" />
+                  <option name="moduleName" value="pochi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:sys_help">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="SysHelp" />
+                  <option name="moduleName" value="pochi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:sys_menu">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="menu_id" />
+                  <option name="javaModelName" value="SysMenu" />
+                  <option name="moduleName" value="pochi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:sys_notice">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="notice_id" />
+                  <option name="javaModelName" value="SysNotice" />
+                  <option name="moduleName" value="pochi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:sys_role">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="role_id" />
+                  <option name="javaModelName" value="SysRole" />
+                  <option name="moduleName" value="pochi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:sys_role_menu">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="SysRoleMenu" />
+                  <option name="moduleName" value="pochi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:sys_user">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="" />
+                  <option name="javaModelName" value="SysUser" />
+                  <option name="moduleName" value="pochi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+            <entry key="pochi:sys_user_role">
+              <value>
+                <TableGenerateConfig>
+                  <option name="generatedKey" value="id" />
+                  <option name="javaModelName" value="SysUserRole" />
+                  <option name="moduleName" value="pochi" />
+                  <option name="sequenceColumn" value="" />
+                  <option name="sequenceId" value="" />
+                  <option name="useActualColumnName" value="false" />
+                </TableGenerateConfig>
+              </value>
+            </entry>
+          </map>
+        </option>
+        <option name="userMybatisPlus" value="true" />
+        <option name="xmlMapperPackage" value="mapper" />
+        <option name="xmlMapperPath" value="E:\程序设计\毕业设计\pochi\pochi-commodity\commodity-mapper\src\main\resources" />
+      </ProjectProfile>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/pochi-commodity/commodity-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-commodity/commodity-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-commodity/commodity-mapper/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-commodity/commodity-mapper/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-commodity/commodity-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-commodity/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-commodity/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-commons/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-marketing/marketing-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-marketing/marketing-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-marketing/marketing-mapper/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-marketing/marketing-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-marketing/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-marketing/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-system/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-system/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-system/system-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-system/system-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-system/system-mapper/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-system/system-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pochi-system/system-web/src/main/java" charset="UTF-8" />
+  </component>
+</project>

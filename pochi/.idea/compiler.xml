@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="system-mapper" />
+        <module name="marketing-service" />
+        <module name="commodity-domain" />
+        <module name="system-service" />
+        <module name="system-web" />
+        <module name="system-api" />
+        <module name="commodity-service" />
+        <module name="system-domain" />
+        <module name="commodity-api" />
+        <module name="marketing-mapper" />
+        <module name="marketing-api" />
+        <module name="pochi-commons" />
+        <module name="commodity" />
+        <module name="commodity-mapper" />
+        <module name="marketing-domain" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="commodity" target="1.8" />
+      <module name="commodity-web" target="1.8" />
+      <module name="pochi-system" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="commodity" options="-parameters" />
+      <module name="commodity-api" options="-parameters" />
+      <module name="commodity-domain" options="-parameters" />
+      <module name="commodity-mapper" options="-parameters" />
+      <module name="commodity-service" options="-parameters" />
+      <module name="commodity-web" options="-parameters" />
+      <module name="marketing-api" options="-parameters" />
+      <module name="marketing-domain" options="-parameters" />
+      <module name="marketing-mapper" options="-parameters" />
+      <module name="marketing-service" options="-parameters" />
+      <module name="pochi" options="-parameters" />
+      <module name="pochi-commodity" options="-parameters" />
+      <module name="pochi-commons" options="-parameters" />
+      <module name="pochi-marketing" options="-parameters" />
+      <module name="pochi-system" options="-parameters" />
+      <module name="system-api" options="-parameters" />
+      <module name="system-domain" options="-parameters" />
+      <module name="system-mapper" options="-parameters" />
+      <module name="system-service" options="-parameters" />
+      <module name="system-web" options="-parameters" />
+    </option>
+  </component>
+</project>

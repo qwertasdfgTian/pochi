@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.mapper.ShopUserStatisticMapper">
+  <resultMap id="BaseResultMap" type="com.lt.pojo.ShopUserStatistic">
+    <!--@mbg.generated-->
+    <!--@Table shop_user_statistic-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="consume_amount" jdbcType="DECIMAL" property="consumeAmount" />
+    <result column="order_count" jdbcType="INTEGER" property="orderCount" />
+    <result column="coupon_count" jdbcType="INTEGER" property="couponCount" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+    <result column="return_order_count" jdbcType="INTEGER" property="returnOrderCount" />
+    <result column="login_count" jdbcType="INTEGER" property="loginCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, user_id, consume_amount, order_count, coupon_count, comment_count, return_order_count, 
+    login_count
+  </sql>
+
+    <select id="getTopStatistic" resultMap="BaseResultMap">
+        select id,
+               user_id,
+               consume_amount,
+               order_count,
+               coupon_count,
+               comment_count,
+               return_order_count,
+               login_count
+        from shop_user_statistic
+        order by consume_amount desc
+        limit 10
+    </select>
+</mapper>

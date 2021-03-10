@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.mapper.SysLogMapper">
+  <resultMap id="BaseResultMap" type="com.lt.pojo.SysLog">
+    <!--@mbg.generated-->
+    <!--@Table mg_sys_log-->
+    <id column="log_id" jdbcType="BIGINT" property="logId" />
+    <result column="log_url" jdbcType="VARCHAR" property="logUrl" />
+    <result column="log_params" jdbcType="LONGVARCHAR" property="logParams" />
+    <result column="log_status" jdbcType="INTEGER" property="logStatus" />
+    <result column="log_message" jdbcType="LONGVARCHAR" property="logMessage" />
+    <result column="log_ua" jdbcType="VARCHAR" property="logUa" />
+    <result column="log_controller" jdbcType="VARCHAR" property="logController" />
+    <result column="log_method" jdbcType="VARCHAR" property="logMethod" />
+    <result column="log_time" jdbcType="BIGINT" property="logTime" />
+    <result column="log_result" jdbcType="LONGVARCHAR" property="logResult" />
+    <result column="log_ip" jdbcType="VARCHAR" property="logIp" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="createdDate" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    log_id, log_url, log_params, log_status, log_message, log_ua, log_controller, log_method, 
+    log_time, log_result, log_ip, created_date, created_by
+  </sql>
+</mapper>

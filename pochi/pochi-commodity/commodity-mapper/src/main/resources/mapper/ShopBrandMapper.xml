@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.mapper.ShopBrandMapper">
+  <resultMap id="BaseResultMap" type="com.lt.pojo.ShopBrand">
+    <!--@mbg.generated-->
+    <!--@Table shop_brand-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="show_status" jdbcType="INTEGER" property="showStatus" />
+    <result column="logo" jdbcType="VARCHAR" property="logo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, sort, show_status, logo
+  </sql>
+
+  <insert id="save" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into shop_brand(name, sort, show_status, logo)
+        values (#{name}, #{sort}, #{showStatus}, #{logo})
+    </insert>
+</mapper>

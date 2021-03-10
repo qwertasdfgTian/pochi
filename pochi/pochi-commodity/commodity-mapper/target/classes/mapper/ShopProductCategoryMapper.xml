@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.mapper.ShopProductCategoryMapper">
+  <resultMap id="BaseResultMap" type="com.lt.pojo.ShopProductCategory">
+    <!--@mbg.generated-->
+    <!--@Table shop_product_category-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="nav_status" jdbcType="INTEGER" property="navStatus" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, parent_id, `name`, `level`, nav_status, sort, icon
+  </sql>
+  <select id="getNavList" resultType="com.lt.pojo.ShopProductCategory">
+        select id,
+               name,
+               icon
+        from shop_product_category
+        where level = 3
+          and nav_status = 1
+        order by sort
+        limit 10
+  </select>
+</mapper>

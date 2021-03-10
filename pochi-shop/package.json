@@ -1,0 +1,16 @@
+{
+  "name": "pochi-shop",
+  "version": "1.0.0",
+  "description": "自己研究开发的纯uni-app电商前端模板，会不定期更新模板内容，功能，UI界面的。\r #### 如果对您有用 好评哦 (^ω^)",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "js-md5": "^0.7.3",
+    "uview-ui": "^1.8.3"
+  }
+}

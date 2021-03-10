@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.mapper.ShopCouponMapper">
+  <resultMap id="BaseResultMap" type="com.lt.pojo.ShopCoupon">
+    <!--@mbg.generated-->
+    <!--@Table shop_coupon-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="coupon_type" jdbcType="INTEGER" property="couponType" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="min_point" jdbcType="DECIMAL" property="minPoint" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="rest_count" jdbcType="INTEGER" property="restCount" />
+    <result column="publish_count" jdbcType="INTEGER" property="publishCount" />
+    <result column="use_count" jdbcType="INTEGER" property="useCount" />
+    <result column="receive_count" jdbcType="INTEGER" property="receiveCount" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap1" type="com.lt.pojo.ShopProduct">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pic" property="pic"/>
+        <result column="price" property="price"/>
+        <result column="sale" property="sale"/>
+        <result column="comment_num" property="commentNum"/>
+        <result column="stock" property="stock"/>
+        <result column="low_stock" property="lowStock"/>
+        <result column="point" property="point"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="pack_code" property="packCode"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="brand_name" property="brandName"/>
+        <result column="trans_fee" property="transFee"/>
+        <result column="specs" property="specs"/>
+        <result column="publish_status" property="publishStatus"/>
+        <result column="new_status" property="newStatus"/>
+        <result column="recommend_status" property="recommendStatus"/>
+    </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, coupon_type, `name`, amount, min_point, start_time, end_time, rest_count, publish_count, 
+    use_count, receive_count, create_by, create_time, update_by, update_time, deleted, 
+    `status`
+  </sql>
+
+  <select id="getInfoById" resultMap="BaseResultMap1">
+        select id,
+               name,
+               pic,
+               price,
+               sale,
+               comment_num,
+               stock,
+               low_stock,
+               point,
+               category_id,
+               pack_code,
+               brand_id,
+               brand_name,
+               trans_fee,
+               specs,
+               publish_status,
+               new_status,
+               recommend_status
+        from shop_product
+        where id = #{id}
+    </select>
+
+        <select id="getBothCoupon" resultMap="BaseResultMap">
+        select id,
+               coupon_type,
+               name,
+               amount,
+               min_point,
+               start_time,
+               end_time,
+               status
+        from shop_coupon
+        where deleted = 0
+          and status = 1
+          and coupon_type = 0
+          and now() between start_time and end_time
+    </select>
+    <select id="getByCategoryId" resultMap="BaseResultMap">
+        select sc.id,
+               sc.coupon_type,
+               sc.name,
+               sc.amount,
+               sc.min_point,
+               sc.start_time,
+               sc.end_time,
+               sc.status
+        from shop_coupon sc
+                 left join shop_coupon_category scc on sc.id = scc.coupon_id
+        where sc.deleted = 0
+          and sc.status = 1
+          and sc.coupon_type = 1
+          and now() between start_time and end_time
+          and scc.category_id = #{categoryId}
+    </select>
+    <select id="getByProductId" resultMap="BaseResultMap">
+        select sc.id,
+               sc.coupon_type,
+               sc.name,
+               sc.amount,
+               sc.min_point,
+               sc.start_time,
+               sc.end_time,
+               sc.status
+        from shop_coupon sc
+                 left join shop_coupon_product scp on sc.id = scp.coupon_id
+        where sc.deleted = 0
+          and sc.status = 1
+          and sc.coupon_type = 1
+          and now() between start_time and end_time
+          and scp.product_id = #{productId}
+    </select>
+</mapper>

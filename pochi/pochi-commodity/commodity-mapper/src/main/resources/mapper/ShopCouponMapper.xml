@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.mapper.ShopCouponMapper">
+  <resultMap id="BaseResultMap" type="com.lt.pojo.ShopCoupon">
+    <!--@mbg.generated-->
+    <!--@Table shop_coupon-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="coupon_type" jdbcType="INTEGER" property="couponType" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="min_point" jdbcType="DECIMAL" property="minPoint" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="rest_count" jdbcType="INTEGER" property="restCount" />
+    <result column="publish_count" jdbcType="INTEGER" property="publishCount" />
+    <result column="use_count" jdbcType="INTEGER" property="useCount" />
+    <result column="receive_count" jdbcType="INTEGER" property="receiveCount" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, coupon_type, `name`, amount, min_point, start_time, end_time, rest_count, publish_count, 
+    use_count, receive_count, create_by, create_time, update_by, update_time, deleted, 
+    `status`
+  </sql>
+
+</mapper>

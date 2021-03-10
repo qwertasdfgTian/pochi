@@ -1,0 +1,239 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 主要颜色 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.page.data-v-3105933c {
+  background-color: #f6f6f6;
+}
+/*评价筛选*/
+.evaluate-filtrate.data-v-3105933c {
+  padding: 0 30rpx;
+  height: 100rpx;
+  background-color: #ffffff;
+  border-radius: 0 0 10rpx 10rpx;
+}
+.evaluate-filtrate .filtrate-list.data-v-3105933c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  width: 100%;
+  padding: 20rpx 0;
+}
+.evaluate-filtrate .filtrate-list .list.data-v-3105933c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+}
+.evaluate-filtrate .filtrate-list .list text.data-v-3105933c {
+  padding: 6rpx 30rpx;
+  font-size: 24rpx;
+  color: #222222;
+  background-color: rgba(233, 59, 61, 0.2);
+  border: 1px solid transparent;
+  border-radius: 60rpx;
+}
+.evaluate-filtrate .filtrate-list .list .action.data-v-3105933c {
+  border: 1px solid #fe3b0f;
+  color: #fe3b0f;
+}
+/* 评价 */
+.evaluate-data.data-v-3105933c {
+  padding: 20rpx 30rpx;
+  background-color: #ffffff;
+  margin: 20rpx auto;
+  border-radius: 10rpx;
+}
+.evaluate-data .evaluate-list.data-v-3105933c {
+  width: 100%;
+}
+.evaluate-data .evaluate-list > .list.data-v-3105933c {
+  border-bottom: 1px solid #f6f6f6;
+}
+.evaluate-data .evaluate-list .user-info.data-v-3105933c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  width: 100%;
+  height: 80rpx;
+}
+.evaluate-data .evaluate-list .user-info .thumb.data-v-3105933c {
+  width: 60rpx;
+  height: 60rpx;
+}
+.evaluate-data .evaluate-list .user-info .thumb image.data-v-3105933c {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+}
+.evaluate-data .evaluate-list .user-info .nickname-grade.data-v-3105933c {
+  width: 100%;
+  height: 60rpx;
+  margin-left: 20rpx;
+}
+.evaluate-data .evaluate-list .user-info .nickname-grade .nickname.data-v-3105933c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.evaluate-data .evaluate-list .user-info .nickname-grade .nickname text.data-v-3105933c {
+  font-size: 24rpx;
+  color: #212121;
+}
+.evaluate-data .evaluate-list .user-info .nickname-grade .grade.data-v-3105933c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  width: 100%;
+  margin-top: 6rpx;
+}
+.evaluate-data .evaluate-list .user-info .nickname-grade .grade .star.data-v-3105933c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.evaluate-data .evaluate-list .user-info .nickname-grade .grade .star text.data-v-3105933c {
+  font-size: 24rpx;
+  color: #fe3b0f;
+}
+.evaluate-data .evaluate-list .user-info .nickname-grade .grade .date.data-v-3105933c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.evaluate-data .evaluate-list .user-info .nickname-grade .grade .date text.data-v-3105933c {
+  font-size: 24rpx;
+  color: #999999;
+}
+.evaluate-data .evaluate-list .content.data-v-3105933c {
+  width: 100%;
+}
+.evaluate-data .evaluate-list .content .character.data-v-3105933c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding: 10rpx 0;
+}
+.evaluate-data .evaluate-list .content .character text.data-v-3105933c {
+  font-size: 24rpx;
+  color: #333333;
+}
+.evaluate-data .evaluate-list .content .attr.data-v-3105933c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding: 10rpx 0;
+}
+.evaluate-data .evaluate-list .content .attr text.data-v-3105933c {
+  font-size: 24rpx;
+  color: #CCCCCC;
+}
+.evaluate-data .evaluate-list .content .thumb-list.data-v-3105933c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+  width: 100%;
+  margin: 10rpx 0;
+}
+.evaluate-data .evaluate-list .content .thumb-list .video-info.data-v-3105933c {
+  position: relative;
+  width: 220rpx;
+  height: 220rpx;
+  margin-right: 2%;
+}
+.evaluate-data .evaluate-list .content .thumb-list .video-info .picture.data-v-3105933c {
+  width: 100%;
+  height: 100%;
+}
+.evaluate-data .evaluate-list .content .thumb-list .video-info .shade.data-v-3105933c {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.evaluate-data .evaluate-list .content .thumb-list .video-info .shade text.data-v-3105933c {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 72rpx;
+  color: #ffffff;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.evaluate-data .evaluate-list .content .thumb-list > .list.data-v-3105933c {
+  width: 220rpx;
+  height: 220rpx;
+  margin-right: 2%;
+  margin-bottom: 15rpx;
+}
+.evaluate-data .evaluate-list .content .thumb-list > .list image.data-v-3105933c {
+  width: 100%;
+  height: 100%;
+}
+.evaluate-data .evaluate-list .content .thumb-list > .list.data-v-3105933c:nth-child(3n) {
+  margin-right: 0;
+}
+.video-win .cu-dialog.data-v-3105933c {
+  background-color: transparent;
+}
+.video-win .bg-img.data-v-3105933c {
+  background-color: transparent;
+}
+.video-win .bg-img video.data-v-3105933c {
+  width: 100%;
+}
+

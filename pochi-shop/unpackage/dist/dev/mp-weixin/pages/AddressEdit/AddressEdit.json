@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "编辑地址",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "usingComponents": {
+    "simple-address": "/components/simple-address/simple-address"
+  }
+}
