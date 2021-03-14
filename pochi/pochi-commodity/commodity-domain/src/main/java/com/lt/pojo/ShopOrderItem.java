@@ -80,13 +80,13 @@ public class ShopOrderItem implements Serializable {
      * 创建时间
      */
     @TableField(value = "create_time")
-    private Date createTime;
+    private String createTime;
 
     /**
      * 修改时间
      */
     @TableField(value = "update_time")
-    private Date updateTime;
+    private String updateTime;
 
     /**
      * 是否删除，1是0否

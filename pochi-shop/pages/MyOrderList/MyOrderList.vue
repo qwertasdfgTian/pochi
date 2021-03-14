@@ -61,6 +61,9 @@
 					</view>
 				</view>
 				<view class="status-btn">
+					<view style="text-align: left">
+						<text>订单剩余时间：</text>
+					</view>
 					<view class="btn" @click="toCancel(item.id)" v-if="item.status === 1">
 						<text>取消订单</text>
 					</view>
@@ -202,6 +205,26 @@
 			this.orderStatus = type;
 		},
 		methods: {
+			/**
+			 * 倒计时
+			 */
+			CountDownData() {
+				setTimeout(() => {
+					this.CountDown--;
+					this.day = parseInt(this.CountDown / (24 * 60 * 60))
+					this.hour = parseInt(this.CountDown / (60 * 60) % 24);
+					this.min = parseInt(this.CountDown / 60 % 60);
+					this.sec = parseInt(this.CountDown % 60);
+					if (this.CountDown <= 0) {
+						uni.showToast({
+							icon: 'none',
+							title:'订单已过期'
+						})
+						return
+					}
+					this.CountDownData();
+				}, 1000)
+			},
 			// 再次购买
 			onBuy(item){
 				uni.navigateTo({

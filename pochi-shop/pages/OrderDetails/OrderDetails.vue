@@ -7,7 +7,7 @@
 				<text>{{orderStatus[order.status]}}</text>
 			</view>
 			<view class="reason" v-if="order.status===0">
-				<text>剩余12分68秒</text>
+				<text>剩余{{min}}分{{sec}}秒</text>
 			</view>
 		</view>
 		<!-- 收货地址 -->
@@ -198,11 +198,15 @@
 	export default {
 		data() {
 			return {
+				CountDown: 1800,
 				// 订单对象
 				order: {},
 				// 订单ID
 				orderId: null,
-				
+				day: 0,
+				hour: 0,
+				min: 0,
+				sec: 0,
 				// 订单状态
 				orderStatus: {
 					0:'待付款',
@@ -226,8 +230,29 @@
 		onLoad(param) {
 			this.orderId = param.id
 			this.getById()
+			this.CountDownData();
 		},
 		methods:{
+			/**
+			 * 倒计时
+			 */
+			CountDownData() {
+				setTimeout(() => {
+					this.CountDown--;
+					this.day = parseInt(this.CountDown / (24 * 60 * 60))
+					this.hour = parseInt(this.CountDown / (60 * 60) % 24);
+					this.min = parseInt(this.CountDown / 60 % 60);
+					this.sec = parseInt(this.CountDown % 60);
+					if (this.CountDown <= 0) {
+						uni.showToast({
+							icon: 'none',
+							title:'订单已过期'
+						})
+						return
+					}
+					this.CountDownData();
+				}, 1000)
+			},
 			onBuy(){
 				uni.navigateTo({
 					url: `/pages/GoodsDetails/GoodsDetails?id=${this.order.itemList[0].productId}`
@@ -302,6 +327,19 @@
 			getById() {
 				orderApi.get(this.orderId).then(res=>{
 					this.order = res.data
+					if(res.data!=null){
+						const creatTime = res.data.createTime
+						orderApi.orderRemainingTime(creatTime).then(r => {
+							if(res.data){
+								const seconds = res.data / 1000.0;
+								this.CountDown = seconds
+							}else {
+								this.CountDown = 1
+							}
+						})
+					}else{
+						this.CountDown=1800
+					}
 				})
 			},
 			// 确认收货

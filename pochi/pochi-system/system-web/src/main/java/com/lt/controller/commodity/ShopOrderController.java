@@ -6,6 +6,7 @@ import com.lt.controller.BaseController;
 import com.lt.dto.OrderReturnTemplateDto;
 import com.lt.dto.OrderTemplateDto;
 import com.lt.dto.TemplateValue;
+import com.lt.enums.OrderStateEnum;
 import com.lt.pojo.ShopOrderPay;
 import com.lt.service.WxService;
 import com.lt.utils.DateUtils;
@@ -89,6 +90,10 @@ public class ShopOrderController extends BaseController {
     @RequestMapping(value = "/createPayOrder", method = RequestMethod.POST)
 //    @HystrixCommand
     public Result<?> createPayOrder(@RequestBody ShopOrder order) throws Exception {
+        ShopOrderVo shopOrderVo = this.shopOrderService.get(order.getId());
+        if (shopOrderVo.getStatus() == OrderStateEnum.INVALID.getCode()){
+            return new Result<>("订单已过期");
+        }
         LoginUser loginUser = ShiroUtils.getLoginUser();
         // 根据订单id查询订单的详细信息
         order = this.shopOrderService.getById(order.getId());

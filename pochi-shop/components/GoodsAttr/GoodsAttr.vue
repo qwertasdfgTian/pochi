@@ -35,9 +35,9 @@
 				<view class="attr-number" @click.stop="onStop">
 					<view class="tit">数量</view>
 					<view class="number">
-						<text class="iconfont icon-jian"></text>
+						<text class="iconfont icon-jian" @click="changeQuantity(item, -1)"></text>
 						<input type="tel" v-model="productCount">
-						<text class="iconfont icon-jia"></text>
+						<text class="iconfont icon-jia" @click="changeQuantity(item, 1)"></text>
 					</view>
 				</view>
 			</view>
@@ -82,6 +82,18 @@
 			}
 		},
 		methods:{
+			// 改变数量
+			changeQuantity(item, num) {
+				this.productCount = this.productCount + num
+				if(this.productCount <= 0){
+				    this.productCount = 1
+				    uni.showToast({
+					  icon:'none',
+					  title:'最少购买1个商品'
+				    })
+				}
+				this.$emit("pChoseProduct",this.currentItem.specName+"，"+this.productCount+"个")
+			},
 			// 加入购物车
 			addCart() {
 				cartApi.save({productId: this.currentItem.productId, quantity: this.productCount}).then(res=>{

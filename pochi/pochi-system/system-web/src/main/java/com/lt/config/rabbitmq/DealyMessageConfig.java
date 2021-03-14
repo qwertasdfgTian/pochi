@@ -23,7 +23,7 @@ public class DealyMessageConfig {
     public Queue dealyQueue(){
         HashMap<String,Object> args=new HashMap<>();
         // 把一个队列修改为延迟队列
-        args.put("x-message-ttl",30*60*1000) ; // 消息的最大存活时间
+        args.put("x-message-ttl",1800000) ; // 消息的最大存活时间
         args.put("x-dead-letter-exchange","DeadLetter.exc") ; // 该队列里面的消息死了，去那个交换机
         args.put("x-dead-letter-routing-key","DeadLetter.key") ; // 该队列里面的消息死了，去那个交换机, 由那个路由 key 路由他
         Queue queue=new Queue("dealy",true,false,false,args);

@@ -418,7 +418,7 @@ public class ShopOrderServiceImpl implements ShopOrderService{
         orderHistory.setOrderStatus(OrderStateEnum.INVALID.getCode());
         this.shopOrderHistoryMapper.insert(orderHistory);
         // 退款,如果不是代付款就进行退款
-        if(shopOrder1.getStatus()!=0){
+        if(shopOrder1.getStatus()!=OrderStateEnum.WAIT_PAY.getCode()){
             //保存退费订单
             for (ShopOrderItem shopOrderItem : shopOrderItems) {
                 ShopOrderReturnApply shopOrderReturnApply = new ShopOrderReturnApply();
@@ -480,6 +480,7 @@ public class ShopOrderServiceImpl implements ShopOrderService{
         order.setReceiverRegion(address.getRegion());
         order.setReceiverDetailAddress(address.getDetailAddress());
         order.setNote(orderDto.getNote());
+        order.setCreateTime(DateUtils.newDateTime());
         // order.setCouponAmount(BigDecimal.ZERO);
 
         ShopOrderHistory orderHistory = new ShopOrderHistory();
@@ -493,6 +494,7 @@ public class ShopOrderServiceImpl implements ShopOrderService{
             money.add(p.getTransFee());
             ShopOrderItem item = new ShopOrderItem();
             item.setId(idWorker.nextId());
+            item.setCreateTime(DateUtils.newDateTime());
             item.setOrderId(order.getId());
             item.setProductId(p.getId());
             item.setProductPic(p.getPic());

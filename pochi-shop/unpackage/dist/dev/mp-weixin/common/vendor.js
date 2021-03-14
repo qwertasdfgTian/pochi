@@ -8,7 +8,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.createApp = createApp;exports.createComponent = createComponent;exports.createPage = createPage;exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}
+Object.defineProperty(exports, "__esModule", { value: true });exports.createApp = createApp;exports.createComponent = createComponent;exports.createPage = createPage;exports.createSubpackageApp = createSubpackageApp;exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}
 
 var _toString = Object.prototype.toString;
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -241,7 +241,7 @@ var promiseInterceptor = {
 
 
 var SYNC_API_RE =
-/^\$|sendNativeEvent|restoreGlobal|getCurrentSubNVue|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64/;
+/^\$|Window$|WindowStyle$|sendNativeEvent|restoreGlobal|getCurrentSubNVue|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64/;
 
 var CONTEXT_API_RE = /^create|Manager$/;
 
@@ -432,7 +432,19 @@ var previewImage = {
   } };
 
 
-// import navigateTo from 'uni-helpers/navigate-to'
+var UUID_KEY = '__DC_STAT_UUID';
+var deviceId;
+function addUuid(result) {
+  deviceId = deviceId || wx.getStorageSync(UUID_KEY);
+  if (!deviceId) {
+    deviceId = Date.now() + '' + Math.floor(Math.random() * 1e7);
+    wx.setStorage({
+      key: UUID_KEY,
+      data: deviceId });
+
+  }
+  result.deviceId = deviceId;
+}
 
 function addSafeAreaInsets(result) {
   if (result.safeArea) {
@@ -445,16 +457,22 @@ function addSafeAreaInsets(result) {
 
   }
 }
+
+var getSystemInfo = {
+  returnValue: function returnValue(result) {
+    addUuid(result);
+    addSafeAreaInsets(result);
+  } };
+
+
+// import navigateTo from 'uni-helpers/navigate-to'
+
 var protocols = {
   redirectTo: redirectTo,
   // navigateTo,  // 由于在微信开发者工具的页面参数，会显示__id__参数，因此暂时关闭mp-weixin对于navigateTo的AOP
   previewImage: previewImage,
-  getSystemInfo: {
-    returnValue: addSafeAreaInsets },
-
-  getSystemInfoSync: {
-    returnValue: addSafeAreaInsets } };
-
+  getSystemInfo: getSystemInfo,
+  getSystemInfoSync: getSystemInfo };
 
 var todos = [
 'vibrate',
@@ -686,16 +704,19 @@ function initHook(name, options) {
     };
   }
 }
+if (!MPPage.__$wrappered) {
+  MPPage.__$wrappered = true;
+  Page = function Page() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    initHook('onLoad', options);
+    return MPPage(options);
+  };
+  Page.after = MPPage.after;
 
-Page = function Page() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  initHook('onLoad', options);
-  return MPPage(options);
-};
-
-Component = function Component() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  initHook('created', options);
-  return MPComponent(options);
-};
+  Component = function Component() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    initHook('created', options);
+    return MPComponent(options);
+  };
+}
 
 var PAGE_EVENT_HOOKS = [
 'onPullDownRefresh',
@@ -1214,9 +1235,13 @@ function handleEvent(event) {var _this = this;
           isCustom,
           methodName);
 
+          params = Array.isArray(params) ? params : [];
           // 参数尾部增加原始事件对象用于复杂表达式内获取额外数据
-          // eslint-disable-next-line no-sparse-arrays
-          ret.push(handler.apply(handlerCtx, (Array.isArray(params) ? params : []).concat([,,,,,,,,,, event])));
+          if (/=\s*\S+\.eventParams\s*\|\|\s*\S+\[['"]event-params['"]\]/.test(handler.toString())) {
+            // eslint-disable-next-line no-sparse-arrays
+            params = params.concat([,,,,,,,,,, event]);
+          }
+          ret.push(handler.apply(handlerCtx, params));
         }
       });
     }
@@ -1231,6 +1256,19 @@ function handleEvent(event) {var _this = this;
   }
 }
 
+var eventChannels = {};
+
+var eventChannelStack = [];
+
+function getEventChannel(id) {
+  if (id) {
+    var eventChannel = eventChannels[id];
+    delete eventChannels[id];
+    return eventChannel;
+  }
+  return eventChannelStack.shift();
+}
+
 var hooks = [
 'onShow',
 'onHide',
@@ -1240,10 +1278,28 @@ var hooks = [
 'onUnhandledRejection'];
 
 
+function initEventChannel() {
+  _vue.default.prototype.getOpenerEventChannel = function () {
+    // 微信小程序使用自身getOpenerEventChannel
+    {
+      return this.$scope.getOpenerEventChannel();
+    }
+  };
+  var callHook = _vue.default.prototype.__call_hook;
+  _vue.default.prototype.__call_hook = function (hook, args) {
+    if (hook === 'onLoad' && args && args.__id__) {
+      this.__eventChannel__ = getEventChannel(args.__id__);
+      delete args.__id__;
+    }
+    return callHook.call(this, hook, args);
+  };
+}
+
 function parseBaseApp(vm, _ref3)
 
 
 {var mocks = _ref3.mocks,initRefs = _ref3.initRefs;
+  initEventChannel();
   if (vm.$options.store) {
     _vue.default.prototype.$store = vm.$options.store;
   }
@@ -1412,34 +1468,7 @@ function parseApp(vm) {
 
 }
 
-var eventChannels = {};
-
-var eventChannelStack = [];
-
-function getEventChannel(id) {
-  if (id) {
-    var eventChannel = eventChannels[id];
-    delete eventChannels[id];
-    return eventChannel;
-  }
-  return eventChannelStack.shift();
-}
-
 function createApp(vm) {
-  _vue.default.prototype.getOpenerEventChannel = function () {
-    // 微信小程序使用自身getOpenerEventChannel
-    {
-      return this.$scope.getOpenerEventChannel();
-    }
-  };
-  var callHook = _vue.default.prototype.__call_hook;
-  _vue.default.prototype.__call_hook = function (hook, args) {
-    if (hook === 'onLoad' && args && args.__id__) {
-      this.__eventChannel__ = getEventChannel(args.__id__);
-      delete args.__id__;
-    }
-    return callHook.call(this, hook, args);
-  };
   App(parseApp(vm));
   return vm;
 }
@@ -1642,6 +1671,41 @@ function createComponent(vueOptions) {
   }
 }
 
+function createSubpackageApp(vm) {
+  var appOptions = parseApp(vm);
+  var app = getApp({
+    allowDefault: true });
+
+  var globalData = app.globalData;
+  if (globalData) {
+    Object.keys(appOptions.globalData).forEach(function (name) {
+      if (!hasOwn(globalData, name)) {
+        globalData[name] = appOptions.globalData[name];
+      }
+    });
+  }
+  Object.keys(appOptions).forEach(function (name) {
+    if (!hasOwn(app, name)) {
+      app[name] = appOptions[name];
+    }
+  });
+  if (isFn(appOptions.onShow) && wx.onAppShow) {
+    wx.onAppShow(function () {for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {args[_key5] = arguments[_key5];}
+      appOptions.onShow.apply(app, args);
+    });
+  }
+  if (isFn(appOptions.onHide) && wx.onAppHide) {
+    wx.onAppHide(function () {for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {args[_key6] = arguments[_key6];}
+      appOptions.onHide.apply(app, args);
+    });
+  }
+  if (isFn(appOptions.onLaunch)) {
+    var args = wx.getLaunchOptionsSync && wx.getLaunchOptionsSync();
+    appOptions.onLaunch.call(app, args);
+  }
+  return vm;
+}
+
 todos.forEach(function (todoApi) {
   protocols[todoApi] = false;
 });
@@ -1721,6 +1785,7 @@ if (typeof Proxy !== 'undefined' && "mp-weixin" !== 'app-plus') {
 wx.createApp = createApp;
 wx.createPage = createPage;
 wx.createComponent = createComponent;
+wx.createSubpackageApp = createSubpackageApp;
 
 var uni$1 = uni;var _default =
 
@@ -1858,9 +1923,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 124:
-/*!**************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/shop-coupon.js ***!
-  \**************************************************/
+/*!********************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-coupon.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1941,9 +2006,9 @@ var groupName = 'shopCoupon';var _default =
 /***/ }),
 
 /***/ 125:
-/*!************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/shop-pack.js ***!
-  \************************************************/
+/*!******************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-pack.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2016,9 +2081,9 @@ var groupName = 'shopPack';var _default =
 /***/ }),
 
 /***/ 126:
-/*!*********************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/shop-order-comment.js ***!
-  \*********************************************************/
+/*!***************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-order-comment.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2057,9 +2122,9 @@ var groupName = 'orderComment';var _default =
 /***/ }),
 
 /***/ 127:
-/*!********************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/shop-user-address.js ***!
-  \********************************************************/
+/*!**************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-user-address.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2118,9 +2183,9 @@ var groupName = 'address';var _default =
 /***/ }),
 
 /***/ 17:
-/*!**********************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/we-chat.js ***!
-  \**********************************************/
+/*!****************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/we-chat.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2180,9 +2245,9 @@ var groupName = 'wx';var _default =
 /***/ }),
 
 /***/ 18:
-/*!************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/utils/request.js ***!
-  \************************************************/
+/*!******************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/utils/request.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2267,9 +2332,9 @@ service;exports.default = _default;
 /***/ }),
 
 /***/ 19:
-/*!***********************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/index.js ***!
-  \***********************************************************/
+/*!*****************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/index.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2288,7 +2353,7 @@ module.exports = __webpack_require__(/*! ./lib/axios */ 20);
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/*!
  * Vue.js v2.6.11
- * (c) 2014-2020 Evan You
+ * (c) 2014-2021 Evan You
  * Released under the MIT License.
  */
 /*  */
@@ -4932,7 +4997,7 @@ function renderList (
       var iterator = val[Symbol.iterator]();
       var result = iterator.next();
       while (!result.done) {
-        ret.push(render(result.value, ret.length, i++, i)); // fixed by xxxxxx
+        ret.push(render(result.value, ret.length, i, i++)); // fixed by xxxxxx
         result = iterator.next();
       }
     } else {
@@ -8247,6 +8312,7 @@ var LIFECYCLE_HOOKS$1 = [
     'onError',
     'onUnhandledRejection',
     //Page
+    'onInit',
     'onLoad',
     // 'onShow',
     'onReady',
@@ -8325,9 +8391,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 20:
-/*!***************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/axios.js ***!
-  \***************************************************************/
+/*!*********************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/axios.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8392,9 +8458,9 @@ module.exports.default = axios;
 /***/ }),
 
 /***/ 21:
-/*!***************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/utils.js ***!
-  \***************************************************************/
+/*!*********************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/utils.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8753,9 +8819,9 @@ module.exports = {
 /***/ }),
 
 /***/ 22:
-/*!**********************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/helpers/bind.js ***!
-  \**********************************************************************/
+/*!****************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/helpers/bind.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8775,9 +8841,9 @@ module.exports = function bind(fn, thisArg) {
 /***/ }),
 
 /***/ 23:
-/*!********************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/core/Axios.js ***!
-  \********************************************************************/
+/*!**************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/core/Axios.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8881,9 +8947,9 @@ module.exports = Axios;
 /***/ }),
 
 /***/ 24:
-/*!**************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/helpers/buildURL.js ***!
-  \**************************************************************************/
+/*!********************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/helpers/buildURL.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8962,9 +9028,9 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 /***/ }),
 
 /***/ 25:
-/*!*********************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/core/InterceptorManager.js ***!
-  \*********************************************************************************/
+/*!***************************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/core/InterceptorManager.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9025,9 +9091,9 @@ module.exports = InterceptorManager;
 /***/ }),
 
 /***/ 26:
-/*!******************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/core/dispatchRequest.js ***!
-  \******************************************************************************/
+/*!************************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/core/dispatchRequest.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9115,9 +9181,9 @@ module.exports = function dispatchRequest(config) {
 /***/ }),
 
 /***/ 27:
-/*!****************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/core/transformData.js ***!
-  \****************************************************************************/
+/*!**********************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/core/transformData.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9146,9 +9212,9 @@ module.exports = function transformData(data, headers, fns) {
 /***/ }),
 
 /***/ 28:
-/*!*************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/cancel/isCancel.js ***!
-  \*************************************************************************/
+/*!*******************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/cancel/isCancel.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9162,9 +9228,9 @@ module.exports = function isCancel(value) {
 /***/ }),
 
 /***/ 29:
-/*!******************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/defaults.js ***!
-  \******************************************************************/
+/*!************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/defaults.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9662,9 +9728,9 @@ var substr = 'ab'.substr(-1) === 'b'
 /***/ }),
 
 /***/ 32:
-/*!*************************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
-  \*************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/helpers/normalizeHeaderName.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9685,9 +9751,9 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 /***/ }),
 
 /***/ 33:
-/*!**********************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/adapters/xhr.js ***!
-  \**********************************************************************/
+/*!****************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/adapters/xhr.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9875,9 +9941,9 @@ module.exports = function xhrAdapter(config) {
 /***/ }),
 
 /***/ 34:
-/*!*********************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/core/settle.js ***!
-  \*********************************************************************/
+/*!***************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/core/settle.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9911,9 +9977,9 @@ module.exports = function settle(resolve, reject, response) {
 /***/ }),
 
 /***/ 35:
-/*!**************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/core/createError.js ***!
-  \**************************************************************************/
+/*!********************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/core/createError.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9940,9 +10006,9 @@ module.exports = function createError(message, config, code, request, response) 
 /***/ }),
 
 /***/ 36:
-/*!***************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/core/enhanceError.js ***!
-  \***************************************************************************/
+/*!*********************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/core/enhanceError.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9993,9 +10059,9 @@ module.exports = function enhanceError(error, config, code, request, response) {
 /***/ }),
 
 /***/ 37:
-/*!*************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/helpers/cookies.js ***!
-  \*************************************************************************/
+/*!*******************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/helpers/cookies.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10056,9 +10122,9 @@ function nonStandardBrowserEnv() {
 /***/ }),
 
 /***/ 38:
-/*!****************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/core/buildFullPath.js ***!
-  \****************************************************************************/
+/*!**********************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/core/buildFullPath.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10087,9 +10153,9 @@ module.exports = function buildFullPath(baseURL, requestedURL) {
 /***/ }),
 
 /***/ 39:
-/*!*******************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
-  \*******************************************************************************/
+/*!*************************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/helpers/isAbsoluteURL.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10112,9 +10178,9 @@ module.exports = function isAbsoluteURL(url) {
 /***/ }),
 
 /***/ 4:
-/*!******************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/pages.json ***!
-  \******************************************/
+/*!************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/pages.json ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10123,9 +10189,9 @@ module.exports = function isAbsoluteURL(url) {
 /***/ }),
 
 /***/ 40:
-/*!*****************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/helpers/combineURLs.js ***!
-  \*****************************************************************************/
+/*!***********************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/helpers/combineURLs.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10148,9 +10214,9 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 /***/ }),
 
 /***/ 41:
-/*!******************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/helpers/parseHeaders.js ***!
-  \******************************************************************************/
+/*!************************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/helpers/parseHeaders.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10212,9 +10278,9 @@ module.exports = function parseHeaders(headers) {
 /***/ }),
 
 /***/ 42:
-/*!*********************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
-  \*********************************************************************************/
+/*!***************************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/helpers/isURLSameOrigin.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10290,9 +10356,9 @@ function nonStandardBrowserEnv() {
 /***/ }),
 
 /***/ 43:
-/*!**************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/core/mergeConfig.js ***!
-  \**************************************************************************/
+/*!********************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/core/mergeConfig.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10388,9 +10454,9 @@ module.exports = function mergeConfig(config1, config2) {
 /***/ }),
 
 /***/ 44:
-/*!***********************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/cancel/Cancel.js ***!
-  \***********************************************************************/
+/*!*****************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/cancel/Cancel.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10418,9 +10484,9 @@ module.exports = Cancel;
 /***/ }),
 
 /***/ 45:
-/*!****************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/cancel/CancelToken.js ***!
-  \****************************************************************************/
+/*!**********************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/cancel/CancelToken.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10486,9 +10552,9 @@ module.exports = CancelToken;
 /***/ }),
 
 /***/ 46:
-/*!************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/helpers/spread.js ***!
-  \************************************************************************/
+/*!******************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/helpers/spread.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10524,9 +10590,9 @@ module.exports = function spread(callback) {
 /***/ }),
 
 /***/ 47:
-/*!******************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/axios/lib/helpers/isAxiosError.js ***!
-  \******************************************************************************/
+/*!************************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/axios/lib/helpers/isAxiosError.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10546,9 +10612,9 @@ module.exports = function isAxiosError(payload) {
 /***/ }),
 
 /***/ 504:
-/*!**************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/node_modules/js-md5/src/md5.js ***!
-  \**************************************************************/
+/*!********************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/js-md5/src/md5.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11255,9 +11321,9 @@ module.exports = __webpack_amd_options__;
 /***/ }),
 
 /***/ 544:
-/*!***********************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/components/mescroll-uni/mescroll-uni.js ***!
-  \***********************************************************************/
+/*!*****************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/mescroll-uni/mescroll-uni.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12066,9 +12132,9 @@ MeScroll.prototype.preventDefault = function (e) {
 /***/ }),
 
 /***/ 545:
-/*!******************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/components/mescroll-uni/mescroll-uni-option.js ***!
-  \******************************************************************************/
+/*!************************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/mescroll-uni/mescroll-uni-option.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12113,9 +12179,9 @@ GlobalOption;exports.default = _default;
 /***/ }),
 
 /***/ 546:
-/*!*********************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/components/mescroll-uni/wxs/mixins.js ***!
-  \*********************************************************************/
+/*!***************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/mescroll-uni/wxs/mixins.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12233,9 +12299,9 @@ WxsMixin;exports.default = _default;
 /***/ }),
 
 /***/ 56:
-/*!**************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/components/mescroll-uni/mescroll-mixins.js ***!
-  \**************************************************************************/
+/*!********************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/mescroll-uni/mescroll-mixins.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12309,9 +12375,9 @@ MescrollMixin;exports.default = _default;
 /***/ }),
 
 /***/ 57:
-/*!*************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/sys-banner.js ***!
-  \*************************************************/
+/*!*******************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/sys-banner.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12407,9 +12473,9 @@ var groupName = 'sysBanner';var _default =
 /***/ }),
 
 /***/ 58:
-/*!*************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/sys-notice.js ***!
-  \*************************************************/
+/*!*******************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/sys-notice.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12496,9 +12562,9 @@ var groupName = 'sysNotice';var _default =
 /***/ }),
 
 /***/ 59:
-/*!************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/shop-product-category.js ***!
-  \************************************************************/
+/*!******************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-product-category.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12603,9 +12669,9 @@ var groupName = 'shopProductCategory';var _default =
 /***/ }),
 
 /***/ 60:
-/*!***************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/shop-product.js ***!
-  \***************************************************/
+/*!*********************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-product.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12765,9 +12831,9 @@ var groupName = 'product';var _default =
 /***/ }),
 
 /***/ 621:
-/*!***************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/components/tki-qrcode/qrcode.js ***!
-  \***************************************************************/
+/*!*********************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/tki-qrcode/qrcode.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13978,9 +14044,9 @@ QRCode;exports.default = _default;
 /***/ }),
 
 /***/ 634:
-/*!*************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/components/uni-swipe-action-item/mpwxs.js ***!
-  \*************************************************************************/
+/*!*******************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/uni-swipe-action-item/mpwxs.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14104,9 +14170,9 @@ QRCode;exports.default = _default;
 /***/ }),
 
 /***/ 644:
-/*!*******************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/components/simple-address/city-data/province.js ***!
-  \*******************************************************************************/
+/*!*************************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/simple-address/city-data/province.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14258,9 +14324,9 @@ provinceData;exports.default = _default;
 /***/ }),
 
 /***/ 645:
-/*!***************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/components/simple-address/city-data/city.js ***!
-  \***************************************************************************/
+/*!*********************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/simple-address/city-data/city.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15776,9 +15842,9 @@ cityData;exports.default = _default;
 /***/ }),
 
 /***/ 646:
-/*!***************************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/components/simple-address/city-data/area.js ***!
-  \***************************************************************************/
+/*!*********************************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/simple-address/city-data/area.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28335,9 +28401,9 @@ areaData;exports.default = _default;
 /***/ }),
 
 /***/ 69:
-/*!*************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/shop-brand.js ***!
-  \*************************************************/
+/*!*******************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-brand.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28424,9 +28490,9 @@ var groupName = 'brand';var _default =
 /***/ }),
 
 /***/ 86:
-/*!*****************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/shop-cart-item.js ***!
-  \*****************************************************/
+/*!***********************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-cart-item.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28488,9 +28554,9 @@ var groupName = 'cartItem';var _default =
 /***/ }),
 
 /***/ 95:
-/*!************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/shop-user.js ***!
-  \************************************************/
+/*!******************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-user.js ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28521,9 +28587,9 @@ var groupName = 'user';var _default =
 /***/ }),
 
 /***/ 96:
-/*!***********************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/shop-prodict-history.js ***!
-  \***********************************************************/
+/*!*****************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-prodict-history.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28583,9 +28649,9 @@ var groupName = 'history';var _default =
 /***/ }),
 
 /***/ 97:
-/*!**************************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/shop-product-collection.js ***!
-  \**************************************************************/
+/*!********************************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-product-collection.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28637,9 +28703,9 @@ var groupName = 'collection';var _default =
 /***/ }),
 
 /***/ 98:
-/*!*************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/shop-order.js ***!
-  \*************************************************/
+/*!*******************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-order.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28735,9 +28801,9 @@ var groupName = 'order';var _default =
 /***/ }),
 
 /***/ 99:
-/*!*****************************************************!*\
-  !*** E:/程序设计/毕业设计/pochi-shop/api/shop-order-pay.js ***!
-  \*****************************************************/
+/*!***********************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-order-pay.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

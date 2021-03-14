@@ -16,16 +16,16 @@
 						<text class="iconfont icon-checked" v-if="item.check"></text>
 						<text class="iconfont icon-check" v-else></text>
 					</view>
-					<view class="goods" @click="toProductInfo(item.productId)">
-						<view class="thumb">
+					<view class="goods" >
+						<view class="thumb" @click="toProductInfo(item.productId)">
 							<image :src="item.productPic" mode=""></image>
 						</view>
 						<view class="item">
-							<view class="title">
+							<view class="title" @click="toProductInfo(item.productId)">
 								<text class="two-omit">{{item.productName}}</text>
 							</view>
 							<view class="price-num">
-								<view class="price">
+								<view class="price" @click="toProductInfo(item.productId)">
 									<text class="min">￥</text>
 									<text class="max">{{item.price}}</text>
 								</view>

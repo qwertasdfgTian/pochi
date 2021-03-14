@@ -64,7 +64,7 @@
 				orderId: null,
 				PayWay: 0,
 				PayPirce: `微信支付￥299.00`,
-				CountDown: 1000,
+				CountDown: 1800,
 				day: 0,
 				hour: 0,
 				min: 0,
@@ -97,10 +97,15 @@
 					if(r.data!=null){
 						const creatTime = r.data.createTime
 						orderApi.orderRemainingTime(creatTime).then(res => {
-							this.CountDown = res.data.time
+							if(res.data){
+								const seconds = res.data / 1000.0;
+								this.CountDown = seconds
+							}else {
+								this.CountDown = 1
+							}	
 						})
 					}else{
-						this.CountDown=1800000
+						this.CountDown=1800
 					}
 				})
 			},
@@ -132,6 +137,10 @@
 					this.min = parseInt(this.CountDown / 60 % 60);
 					this.sec = parseInt(this.CountDown % 60);
 					if (this.CountDown <= 0) {
+						uni.showToast({
+							icon: 'none',
+							title:'订单已过期'
+						})
 						return
 					}
 					this.CountDownData();
@@ -149,30 +158,37 @@
 						// 调用支付接口
 						orderApi.createPayOrder({
 							id: this.orderId
-						}).then(res => {					
-							// 打开支付宝二维码弹窗
-							this.val = res.data.payUrl
-							console.log(this.val)
-							this.show()
-							this.timer = setInterval(() => {
-								console.log("我是定时器")	
-								orderApi.queryOrderPayOrderId(res.data.orderId).then(r => {
-									if (r.data.status === 1) { // 说明订单状态为支付成功
-									  // 清空定时器
-									  clearInterval(this.timer)
-									  uni.showToast({
-									  	title:'支付成功'
-									  })
-									  this.closeAll()
-									  uni.redirectTo({
-									     url: `/pages/PayResult/PayResult?amount=${this.payAmount}`,
-									  })
-									}
-								}).catch(() => {
-								   // 清空定时器
-								   clearInterval(this.timer)
-							  })
-							}, 2000);
+						}).then(res => {
+							if(res.data.payUrl){
+								// 打开支付宝二维码弹窗
+								this.val = res.data.payUrl
+								console.log(this.val)
+								this.show()
+								this.timer = setInterval(() => {
+									console.log("我是定时器")	
+									orderApi.queryOrderPayOrderId(res.data.orderId).then(r => {
+										if (r.data.status === 1) { // 说明订单状态为支付成功
+										  // 清空定时器
+										  clearInterval(this.timer)
+										  uni.showToast({
+										  	title:'支付成功'
+										  })
+										  this.closeAll()
+										  uni.redirectTo({
+										     url: `/pages/PayResult/PayResult?amount=${this.payAmount}`,
+										  })
+										}
+									}).catch(() => {
+									   // 清空定时器
+									   clearInterval(this.timer)
+								  })
+								}, 2000);
+							}else {
+								uni.showToast({
+									title: res.msg
+								})
+							}
+							
 						})		
 						
 					}
