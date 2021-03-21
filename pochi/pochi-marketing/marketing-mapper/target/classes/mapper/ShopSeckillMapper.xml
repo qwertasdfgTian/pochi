@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lt.mapper.ShopSeckillMapper">
+  <resultMap id="BaseResultMap" type="com.lt.pojo.ShopSeckill">
+    <!--@mbg.generated-->
+    <!--@Table shop_seckill-->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="product_pic" jdbcType="VARCHAR" property="productPic" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="product_price" jdbcType="DECIMAL" property="productPrice" />
+    <result column="stock" jdbcType="INTEGER" property="stock" />
+    <result column="cancel_time" jdbcType="VARCHAR" property="cancelTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="quota" jdbcType="INTEGER" property="quota" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, `name`, product_pic, product_name, begin_time, end_time, product_price, stock, 
+    cancel_time, `status`, quota, create_time, update_time, deleted, create_by, update_by
+  </sql>
+</mapper>
