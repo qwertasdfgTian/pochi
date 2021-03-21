@@ -35,10 +35,13 @@ public class MessageReceive {
             channel.basicAck(deliveryTag,false);
             System.out.println("消息接受成功："+orderId);
             // 时间超时，设置订单的状态是无效订单
-            ShopOrder shopOrder=new ShopOrder();
-            shopOrder.setId(Long.valueOf(orderId));
-            shopOrder.setStatus(OrderStateEnum.INVALID.getCode());
-            this.shopOrderService.changeOrderStatus(shopOrder);
+            ShopOrder byId = this.shopOrderService.getById(Long.valueOf(orderId));
+            if (byId.getStatus() == OrderStateEnum.WAIT_PAY.getCode()){
+                ShopOrder shopOrder=new ShopOrder();
+                shopOrder.setId(Long.valueOf(orderId));
+                shopOrder.setStatus(OrderStateEnum.INVALID.getCode());
+                this.shopOrderService.changeOrderStatus(shopOrder);
+            }
             System.out.println("签收成功的时间是："+ DateUtils.newDateTime());
         }catch (Exception e){
             e.printStackTrace();

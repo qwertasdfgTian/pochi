@@ -127,7 +127,8 @@ export default {
       addDialog: false,
       // 控制详情弹窗展示
       infoDialog: false,
-      loading: false
+      loading: false,
+      activeId: null
     }
   },
   created() {
@@ -188,12 +189,12 @@ export default {
     },
     // 删除
     toDelete(id) {
-      this.$confirm('是否删除该帮助?', '提示', {
+      this.$confirm('是否删除该优惠券?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'error'
       }).then(() => {
-        couponApi.deleteById(id).then(res => {
+        couponApi.delete(id).then(res => {
           this.$message.success(res.msg)
           this.getByPage()
         })

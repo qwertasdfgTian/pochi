@@ -161,4 +161,8 @@
         order by sale
         limit 6
     </select>
+
+    <update id="updateStock">
+        update shop_product set stock=stock-#{count} where id=#{productId} and stock>0
+    </update>
 </mapper>

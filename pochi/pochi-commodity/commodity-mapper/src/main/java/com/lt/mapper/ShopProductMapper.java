@@ -1,6 +1,7 @@
 package com.lt.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.lt.dto.OrderProductDto;
 import com.lt.pojo.ShopProduct;
 import com.lt.vo.Page;
 import com.lt.vo.ShopProductVo;
@@ -37,4 +38,9 @@ public interface ShopProductMapper extends BaseMapper<ShopProduct> {
      * @Param: categoryId
     */
     List<ShopProduct> getRankByCategory(Long categoryId);
+
+    /**
+     * 扣除库存
+     */
+    void updateStock(OrderProductDto product);
 }

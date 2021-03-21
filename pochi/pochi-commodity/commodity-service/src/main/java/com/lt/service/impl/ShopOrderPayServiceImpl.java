@@ -57,7 +57,11 @@ public class ShopOrderPayServiceImpl implements ShopOrderPayService {
         qw.eq(ShopOrderPay.COL_ORDER_ID,id);
         qw.orderByDesc(ShopOrderPay.COL_CREATE_TIME);
         List<ShopOrderPay> list = this.shopOrderPayMapper.selectList(qw);
-        return list.get(0);
+        if(list.size()!=0){
+            return list.get(0);
+        }else{
+            return null;
+        }
     }
 
     @Override

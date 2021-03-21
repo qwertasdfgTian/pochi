@@ -311,6 +311,45 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _weChat = _interopRequireDefault(__webpack_require__(/*! @/api/we-chat.js */ 17));
 
 
@@ -319,7 +358,47 @@ var _mescrollMixins = _interopRequireDefault(__webpack_require__(/*! @/component
 var _sysBanner = _interopRequireDefault(__webpack_require__(/*! @/api/sys-banner.js */ 57));
 var _sysNotice = _interopRequireDefault(__webpack_require__(/*! @/api/sys-notice.js */ 58));
 var _shopProductCategory = _interopRequireDefault(__webpack_require__(/*! @/api/shop-product-category.js */ 59));
-var _shopProduct = _interopRequireDefault(__webpack_require__(/*! @/api/shop-product.js */ 60));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+var _shopProduct = _interopRequireDefault(__webpack_require__(/*! @/api/shop-product.js */ 60));
+var _shopSeckill = _interopRequireDefault(__webpack_require__(/*! @/api/shop-seckill.js */ 747));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -469,7 +548,7 @@ var _shopProduct = _interopRequireDefault(__webpack_require__(/*! @/api/shop-pro
 //
 //
 var TabBar = function TabBar() {__webpack_require__.e(/*! require.ensure | components/TabBar/TabBar */ "components/TabBar/TabBar").then((function () {return resolve(__webpack_require__(/*! ../../components/TabBar/TabBar.vue */ 567));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var ClassifyData = function ClassifyData() {__webpack_require__.e(/*! require.ensure | components/ClassifyData/ClassifyData */ "components/ClassifyData/ClassifyData").then((function () {return resolve(__webpack_require__(/*! ../../components/ClassifyData/ClassifyData.vue */ 560));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { mixins: [_mescrollMixins.default], // 使用mixin
-  components: { TabBar: TabBar, ClassifyData: ClassifyData }, data: function data() {return { mescroll: null, // mescroll实例对象 (此行可删,mixins已默认)
+  components: { TabBar: TabBar, ClassifyData: ClassifyData }, data: function data() {return { flag: true, mescroll: null, // mescroll实例对象 (此行可删,mixins已默认)
       // 下拉刷新的配置(可选, 绝大部分情况无需配置)
       downOption: {}, // 上拉加载的配置(可选, 绝大部分情况无需配置)
       upOption: { use: false }, // 轮播图
@@ -480,27 +559,30 @@ var TabBar = function TabBar() {__webpack_require__.e(/*! require.ensure | compo
       navList: [], // 新品商品
       newProductList: [], // 推荐商品
       goodsList: [], slideNum: 0, classifyShow: 0, // 页面高度
-      pageHeight: 500 };}, onReady: function onReady() {uni.hideTabBar();uni.setNavigationBarTitle({ title: '首页' });uni.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: '#fe3b0f' });}, created: function created() {// 如果用户没有登陆成功说明要去注册
+      pageHeight: 500, SecKillProductList: [], nextSecKillTime: null, CountDown: 1800, day: 0, hour: 0, min: 0, sec: 0 };}, onReady: function onReady() {uni.hideTabBar();uni.setNavigationBarTitle({ title: '首页' });uni.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: '#fe3b0f' });}, created: function created() {// 如果用户没有登陆成功说明要去注册
     if (uni.getStorageSync("loginflage") === true) {uni.authorize({ scope: 'scope.userInfo', success: function success() {uni.getUserInfo().then(function (res) {var userInfo = res[1].userInfo; // 获取到openId
             var openId = uni.getStorageSync('openId');userInfo.openId = openId;_weChat.default.registerLogin(userInfo).then(function (res) {// 把token设置到缓存中
               uni.setStorageSync('Authorization', res.data.token);_weChat.default.getLoginInfo().then(function (res) {uni.setStorageSync('loginUser', res.data);}); // 跳转到首页
-              uni.navigateTo({ url: '/pages/home/home' });});console.log(res[1].userInfo);});} });}}, onShow: function onShow() {}, onPageScroll: function onPageScroll(e) {var scrollTop = e.scrollTop;if (scrollTop > 0) {this.pageHeight = 210;} else {this.pageHeight = 500;}}, onReachBottom: function onReachBottom() {console.log(12333);}, methods: { // 初始化页面数据
-    initData: function initData() {this.getBannerList();this.getNoticeList();this.getNavList();this.getNewProduct();this.getRecommendList();}, // 查询轮播图
-    getBannerList: function getBannerList() {var _this = this;_sysBanner.default.getBannerList().then(function (res) {_this.swiperList = res.data;});}, // 查询通知公告列表
-    getNoticeList: function getNoticeList() {var _this2 = this;_sysNotice.default.getNoticeList().then(function (res) {_this2.noticeList = res.data;});}, // 查询通知详情
-    getNoticeInfo: function getNoticeInfo(id) {var _this3 = this;_sysNotice.default.get(id).then(function (res) {_this3.notice = res.data;_this3.noticeDialog = true;});}, // 查询导航宫格
-    getNavList: function getNavList() {var _this4 = this;_shopProductCategory.default.getNavList().then(function (res) {_this4.navList = res.data;});}, // 查询新品推荐
-    getNewProduct: function getNewProduct() {var _this5 = this;_shopProduct.default.getNewProduct().then(function (res) {_this5.newProductList = res.data;});}, // 查看商品详情
+              uni.navigateTo({ url: '/pages/home/home' });});console.log(res[1].userInfo);});} });}}, onShow: function onShow() {this.getAllShopSecKill();}, onPageScroll: function onPageScroll(e) {var scrollTop = e.scrollTop;if (scrollTop > 0) {this.pageHeight = 210;} else {this.pageHeight = 500;}}, onReachBottom: function onReachBottom() {console.log(12333);}, methods: { // 初始化页面数据
+    initData: function initData() {this.getBannerList();this.getNoticeList();this.getNavList();this.getNewProduct();this.getRecommendList();}, // 查询所有的秒杀
+    getAllShopSecKill: function getAllShopSecKill() {var _this = this;_shopSeckill.default.getAll().then(function (res) {_this.SecKillProductList = res.data.all;_this.nextSecKillTime = res.data.nextSecKillTime;if (_this.nextSecKillTime != null) {_this.flag = true;var seconds = _this.nextSecKillTime / 1000.0;_this.CountDown = seconds;_this.CountDownData();} else {_this.flag = false;}});}, /**
+                                                                                                                                                                                                                                                                                                                                                                                                        * 倒计时
+                                                                                                                                                                                                                                                                                                                                                                                                        */CountDownData: function CountDownData() {var _this2 = this;setTimeout(function () {if (_this2.CountDown <= 0) {_this2.getAllShopSecKill();return;}_this2.CountDown--;_this2.day = parseInt(_this2.CountDown / (24 * 60 * 60));_this2.hour = parseInt(_this2.CountDown / (60 * 60) % 24);_this2.min = parseInt(_this2.CountDown / 60 % 60);_this2.sec = parseInt(_this2.CountDown % 60);_this2.CountDownData();}, 1000);}, // 查询轮播图
+    getBannerList: function getBannerList() {var _this3 = this;_sysBanner.default.getBannerList().then(function (res) {_this3.swiperList = res.data;});}, // 查询通知公告列表
+    getNoticeList: function getNoticeList() {var _this4 = this;_sysNotice.default.getNoticeList().then(function (res) {_this4.noticeList = res.data;});}, // 查询通知详情
+    getNoticeInfo: function getNoticeInfo(id) {var _this5 = this;_sysNotice.default.get(id).then(function (res) {_this5.notice = res.data;_this5.noticeDialog = true;});}, // 查询导航宫格
+    getNavList: function getNavList() {var _this6 = this;_shopProductCategory.default.getNavList().then(function (res) {_this6.navList = res.data;});}, // 查询新品推荐
+    getNewProduct: function getNewProduct() {var _this7 = this;_shopProduct.default.getNewProduct().then(function (res) {_this7.newProductList = res.data;});}, // 查看商品详情
     toProductInfo: function toProductInfo(id) {uni.navigateTo({ url: "/pages/GoodsDetails/GoodsDetails?id=".concat(id) });}, // 查询推荐
-    getRecommendList: function getRecommendList() {var _this6 = this;_shopProduct.default.getRecommendList().then(function (res) {_this6.goodsList = res.data;});}, // 点击轮播图
-    clickBanner: function clickBanner(item) {_sysBanner.default.addClickCount(item.id);uni.navigateTo({ url: item.url + '&bannerId=' + item.id });}, /*下拉刷新的回调, 有三种处理方式:*/downCallback: function downCallback() {var _this7 = this;this.$nextTick(function () {_this7.initData();_this7.mescroll.endSuccess();});}, /*上拉加载的回调*/upCallback: function upCallback(page) {var _this8 = this;setTimeout(function () {_this8.mescroll.endByPage(10, 20);}, 2000);}, /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                               * 菜单导航滚动
-                                                                                                                                                                                                                                                                                                                                                                                                                                                               */ScrollMenu: function ScrollMenu(e) {var _this9 = this;var scrollLeft = e.target.scrollLeft;var query = uni.createSelectorQuery().in(this);query.select('.nav').boundingClientRect(function (data) {var wid = e.target.scrollWidth - data.width - (data.left * 2 + 5);_this9.slideNum = scrollLeft / wid * 300 / 2;}).exec();}, /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * 搜索点击
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */onSearch: function onSearch() {uni.navigateTo({ url: '/pages/search/search' });},
+    getRecommendList: function getRecommendList() {var _this8 = this;_shopProduct.default.getRecommendList().then(function (res) {_this8.goodsList = res.data;});}, // 点击轮播图
+    clickBanner: function clickBanner(item) {_sysBanner.default.addClickCount(item.id);uni.navigateTo({ url: item.url + '&bannerId=' + item.id });}, /*下拉刷新的回调, 有三种处理方式:*/downCallback: function downCallback() {var _this9 = this;this.$nextTick(function () {_this9.initData();_this9.mescroll.endSuccess();});}, /*上拉加载的回调*/upCallback: function upCallback(page) {var _this10 = this;setTimeout(function () {_this10.mescroll.endByPage(10, 20);}, 2000);}, /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * 菜单导航滚动
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */ScrollMenu: function ScrollMenu(e) {var _this11 = this;var scrollLeft = e.target.scrollLeft;var query = uni.createSelectorQuery().in(this);query.select('.nav').boundingClientRect(function (data) {var wid = e.target.scrollWidth - data.width - (data.left * 2 + 5);_this11.slideNum = scrollLeft / wid * 300 / 2;}).exec();}, /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     * 搜索点击
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     */onSearch: function onSearch() {uni.navigateTo({ url: '/pages/search/search' });},
     /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * 扫一扫点击
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * 扫一扫点击
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          */
     onCode: function onCode() {
       // 只允许通过相机扫码
       uni.scanCode({

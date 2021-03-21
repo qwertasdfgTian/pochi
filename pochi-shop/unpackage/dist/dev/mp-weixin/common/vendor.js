@@ -28489,6 +28489,88 @@ var groupName = 'brand';var _default =
 
 /***/ }),
 
+/***/ 747:
+/*!*********************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-seckill.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var groupName = 'shopSecKill';var _default =
+{
+  /**
+   * 添加
+   */
+  save: function save(shopSecKill) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/save"),
+      method: 'post',
+      data: shopSecKill });
+
+  },
+  /**
+      * 分页查询
+      * @param {分页查询} page
+      */
+  getByPage: function getByPage(page) {// 分页查询
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/getByPage"),
+      method: 'post',
+      data: page });
+
+  },
+  /**
+      * 删除
+      * @param {*} id
+      */
+  delete: function _delete(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/delete/").concat(id),
+      method: 'delete' });
+
+  },
+  /**
+      * 根据id查询
+      * @param {*} id
+      */
+  get: function get(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/get/").concat(id),
+      method: 'get' });
+
+  },
+  /**
+      * 结束活动
+      */
+  down: function down(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/down/").concat(id),
+      method: 'put' });
+
+  },
+  /**
+      * 查询所有开始和未开始的秒杀
+      */
+  getAll: function getAll() {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/getAll"),
+      method: 'get' });
+
+  },
+  /**
+      * 查询是否是秒杀商品
+      */
+  getSecKill: function getSecKill(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/getSecKill/").concat(id),
+      method: 'get' });
+
+  } };exports.default = _default;
+
+/***/ }),
+
 /***/ 86:
 /*!***********************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-cart-item.js ***!

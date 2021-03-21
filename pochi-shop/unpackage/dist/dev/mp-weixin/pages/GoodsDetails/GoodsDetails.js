@@ -120,9 +120,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var g0 = String(_vm.product.price).split(".")
-  var g1 = String(_vm.product.price).split(".")
-  var g2 = g1[1] ? String(_vm.product.price).split(".") : null
+  var g0 = !_vm.secKillflag ? String(_vm.product.price).split(".") : null
+  var g1 = !_vm.secKillflag ? String(_vm.product.price).split(".") : null
+  var g2 =
+    !_vm.secKillflag && g1[1] ? String(_vm.product.price).split(".") : null
+  var g3 = _vm.secKillflag ? String(_vm.shopSeckillPrice).split(".") : null
+  var g4 = _vm.secKillflag ? String(_vm.shopSeckillPrice).split(".") : null
+  var g5 =
+    _vm.secKillflag && g4[1] ? String(_vm.shopSeckillPrice).split(".") : null
 
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
@@ -157,7 +162,10 @@ var render = function() {
       $root: {
         g0: g0,
         g1: g1,
-        g2: g2
+        g2: g2,
+        g3: g3,
+        g4: g4,
+        g5: g5
       }
     }
   )
@@ -530,6 +538,47 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _shopProduct = _interopRequireDefault(__webpack_require__(/*! @/api/shop-product.js */ 60));
 var _shopCoupon = _interopRequireDefault(__webpack_require__(/*! @/api/shop-coupon.js */ 124));
 var _shopPack = _interopRequireDefault(__webpack_require__(/*! @/api/shop-pack.js */ 125));
@@ -537,8 +586,8 @@ var _shopCartItem = _interopRequireDefault(__webpack_require__(/*! @/api/shop-ca
 var _shopProdictHistory = _interopRequireDefault(__webpack_require__(/*! @/api/shop-prodict-history.js */ 96));
 var _shopProductCollection = _interopRequireDefault(__webpack_require__(/*! @/api/shop-product-collection.js */ 97));
 var _shopOrderComment = _interopRequireDefault(__webpack_require__(/*! @/api/shop-order-comment.js */ 126));
-var _shopUserAddress = _interopRequireDefault(__webpack_require__(/*! @/api/shop-user-address.js */ 127));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var popupLayer = function popupLayer() {__webpack_require__.e(/*! require.ensure | components/popup-layer/popup-layer */ "components/popup-layer/popup-layer").then((function () {return resolve(__webpack_require__(/*! @/components/popup-layer/popup-layer.vue */ 574));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var GoodsServe = function GoodsServe() {__webpack_require__.e(/*! require.ensure | components/GoodsServe/GoodsServe */ "components/GoodsServe/GoodsServe").then((function () {return resolve(__webpack_require__(/*! ../../components/GoodsServe/GoodsServe.vue */ 581));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var GoodsCoupon = function GoodsCoupon() {__webpack_require__.e(/*! require.ensure | components/GoodsCoupon/GoodsCoupon */ "components/GoodsCoupon/GoodsCoupon").then((function () {return resolve(__webpack_require__(/*! ../../components/GoodsCoupon/GoodsCoupon.vue */ 588));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var GoodsAttr = function GoodsAttr() {__webpack_require__.e(/*! require.ensure | components/GoodsAttr/GoodsAttr */ "components/GoodsAttr/GoodsAttr").then((function () {return resolve(__webpack_require__(/*! ../../components/GoodsAttr/GoodsAttr.vue */ 595));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
-
+var _shopUserAddress = _interopRequireDefault(__webpack_require__(/*! @/api/shop-user-address.js */ 127));
+var _shopSeckill = _interopRequireDefault(__webpack_require__(/*! @/api/shop-seckill.js */ 747));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var popupLayer = function popupLayer() {__webpack_require__.e(/*! require.ensure | components/popup-layer/popup-layer */ "components/popup-layer/popup-layer").then((function () {return resolve(__webpack_require__(/*! @/components/popup-layer/popup-layer.vue */ 574));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var GoodsServe = function GoodsServe() {__webpack_require__.e(/*! require.ensure | components/GoodsServe/GoodsServe */ "components/GoodsServe/GoodsServe").then((function () {return resolve(__webpack_require__(/*! ../../components/GoodsServe/GoodsServe.vue */ 581));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var GoodsCoupon = function GoodsCoupon() {__webpack_require__.e(/*! require.ensure | components/GoodsCoupon/GoodsCoupon */ "components/GoodsCoupon/GoodsCoupon").then((function () {return resolve(__webpack_require__(/*! ../../components/GoodsCoupon/GoodsCoupon.vue */ 588));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var GoodsAttr = function GoodsAttr() {__webpack_require__.e(/*! require.ensure | components/GoodsAttr/GoodsAttr */ "components/GoodsAttr/GoodsAttr").then((function () {return resolve(__webpack_require__(/*! ../../components/GoodsAttr/GoodsAttr.vue */ 595));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   components: {
     GoodsServe: GoodsServe,
@@ -580,7 +629,15 @@ var _shopUserAddress = _interopRequireDefault(__webpack_require__(/*! @/api/shop
       type: 0,
       commentDataPage: {},
       address: null,
-      choseProductName: '' };
+      choseProductName: '',
+      secKillflag: false,
+      startflag: false,
+      CountDown: 1800,
+      day: 0,
+      hour: 0,
+      min: 0,
+      sec: 0,
+      shopSeckillPrice: '' };
 
   },
   onShow: function onShow() {
@@ -600,20 +657,71 @@ var _shopUserAddress = _interopRequireDefault(__webpack_require__(/*! @/api/shop
     this.saveHistory();
     this.getCollection();
     this.getComment();
+    this.getSecKill();
   },
   onPageScroll: function onPageScroll(e) {
     this.PageScrollTop = e.scrollTop;
   },
   methods: {
+    getSecKill: function getSecKill() {var _this = this;
+      _shopSeckill.default.getSecKill(this.productId).then(function (res) {
+        if (res.data == null) {
+          _this.secKillflag = false;
+          _this.startflag = false;
+        }
+        if (res.data.beginSecKillTime != null) {
+          // 标记是秒杀的商品
+          _this.secKillflag = true;
+          var seconds = res.data.beginSecKillTime / 1000.0;
+          _this.CountDown = seconds;
+          _this.CountDownData();
+        }
+        if (res.data.endSecKillTime != null) {
+          // 标记是秒杀的商品
+          _this.secKillflag = true;
+          // 标记可以秒杀
+          _this.startflag = true;
+          var _seconds = res.data.endSecKillTime / 1000.0;
+          _this.CountDown = _seconds;
+          _this.CountDownData();
+        }
+        if (res.data.shopSeckill != null) {
+          _this.shopSeckillPrice = res.data.shopSeckill.productPrice;
+        }
+      });
+    },
+    /**
+        * 倒计时
+        */
+    CountDownData: function CountDownData() {var _this2 = this;
+      setTimeout(function () {
+        if (_this2.CountDown <= 0) {
+          if (_this2.startflag == true) {
+            uni.showToast({
+              icon: 'none',
+              title: '秒杀已结束' });
+
+          }
+          _this2.getSecKill();
+          return;
+        }
+        _this2.CountDown--;
+        _this2.day = parseInt(_this2.CountDown / (24 * 60 * 60));
+        _this2.hour = parseInt(_this2.CountDown / (60 * 60) % 24);
+        _this2.min = parseInt(_this2.CountDown / 60 % 60);
+        _this2.sec = parseInt(_this2.CountDown % 60);
+        _this2.CountDownData();
+      }, 1000);
+    },
     choseAddress: function choseAddress(item) {
       uni.setStorageSync('Address', item);
       this.$refs.popupRef.close(); // 或者 boolShow = false
       this.address = item;
     },
     // 查询地址列表
-    getAddressList1: function getAddressList1() {var _this = this;
+    getAddressList1: function getAddressList1() {var _this3 = this;
       _shopUserAddress.default.getUserAddress().then(function (res) {
-        _this.addressList = res.data;
+        _this3.addressList = res.data;
       });
     },
     /**
@@ -638,22 +746,22 @@ var _shopUserAddress = _interopRequireDefault(__webpack_require__(/*! @/api/shop
       this.getProductCount();
     },
     // 加载收货地址
-    getAddressList: function getAddressList() {var _this2 = this;
+    getAddressList: function getAddressList() {var _this4 = this;
       _shopUserAddress.default.getUserAddress().then(function (res) {
         var addressArr = res.data;
         if (addressArr && addressArr[0]) {
-          _this2.address = addressArr[0];
+          _this4.address = addressArr[0];
           // 设置到缓存里面
-          uni.setStorageSync('Address', _this2.address);
+          uni.setStorageSync('Address', _this4.address);
         }
       });
     },
     // 查询商品评价
-    getComment: function getComment() {var _this3 = this;
+    getComment: function getComment() {var _this5 = this;
       this.commentPage.params.productId = this.productId;
       this.commentPage.params.star = 1000;
       _shopOrderComment.default.getByPage(this.commentPage).then(function (res) {
-        _this3.commentDataPage = res.data;
+        _this5.commentDataPage = res.data;
       });
     },
     // 打开商品优惠券组件
@@ -662,41 +770,41 @@ var _shopUserAddress = _interopRequireDefault(__webpack_require__(/*! @/api/shop
       this.getProductCoupon();
     },
     // 查询商品详情
-    getProductInfo: function getProductInfo() {var _this4 = this;
+    getProductInfo: function getProductInfo() {var _this6 = this;
       _shopProduct.default.get(this.productId).then(function (res) {
         if (res.data.productContent) {
           res.data.productContent = res.data.productContent.replace(/\<img/gi, '<img style="max-width:100%;height:auto"');
         }
-        _this4.product = res.data;
-        if (_this4.product.specs != null) {
-          _this4.choseProductName = _this4.product.specs + "，1个";
+        _this6.product = res.data;
+        if (_this6.product.specs != null) {
+          _this6.choseProductName = _this6.product.specs + "，1个";
         } else {
-          _this4.choseProductName = _this4.product.name + "，1个";
+          _this6.choseProductName = _this6.product.name + "，1个";
         }
       });
     },
     // 查询商品优惠券
-    getProductCoupon: function getProductCoupon() {var _this5 = this;
+    getProductCoupon: function getProductCoupon() {var _this7 = this;
       _shopCoupon.default.getProductCoupon(this.productId).then(function (res) {
-        _this5.couponList = res.data;
+        _this7.couponList = res.data;
       });
     },
     // 查询商品套装
-    getProductPackList: function getProductPackList() {var _this6 = this;
+    getProductPackList: function getProductPackList() {var _this8 = this;
       _shopPack.default.getByProductId(this.productId).then(function (res) {
-        _this6.packList = res.data;
+        _this8.packList = res.data;
       });
     },
     // 查询排行榜
-    getRankByProduct: function getRankByProduct() {var _this7 = this;
+    getRankByProduct: function getRankByProduct() {var _this9 = this;
       _shopProduct.default.getRankByProduct(this.productId).then(function (res) {
-        _this7.rankList = res.data;
+        _this9.rankList = res.data;
       });
     },
     // 查询购物车商品数
-    getProductCount: function getProductCount() {var _this8 = this;
+    getProductCount: function getProductCount() {var _this10 = this;
       _shopCartItem.default.getProductCount().then(function (res) {
-        _this8.productCount = res.data;
+        _this10.productCount = res.data;
       });
     },
     // 保存历史记录
@@ -704,16 +812,16 @@ var _shopUserAddress = _interopRequireDefault(__webpack_require__(/*! @/api/shop
       _shopProdictHistory.default.save({ productId: this.productId });
     },
     // 切换收藏状态
-    changeCollection: function changeCollection() {var _this9 = this;
+    changeCollection: function changeCollection() {var _this11 = this;
       _shopProductCollection.default.changeCollection({ productId: this.productId }).then(function (res) {
-        if (_this9.AttentionShow === 0) {
-          _this9.AttentionShow = 1;
+        if (_this11.AttentionShow === 0) {
+          _this11.AttentionShow = 1;
           uni.showToast({
             title: '收藏成功',
             icon: 'none' });
 
         } else {
-          _this9.AttentionShow = 0;
+          _this11.AttentionShow = 0;
           uni.showToast({
             title: '取消成功',
             icon: 'none' });
@@ -721,12 +829,12 @@ var _shopUserAddress = _interopRequireDefault(__webpack_require__(/*! @/api/shop
         }
       });
     },
-    getCollection: function getCollection() {var _this10 = this;
+    getCollection: function getCollection() {var _this12 = this;
       _shopProductCollection.default.getByProductId(this.productId).then(function (res) {
         if (res.data) {
-          _this10.AttentionShow = 1;
+          _this12.AttentionShow = 1;
         } else {
-          _this10.AttentionShow = 0;
+          _this12.AttentionShow = 0;
         }
       });
     },
@@ -741,7 +849,7 @@ var _shopUserAddress = _interopRequireDefault(__webpack_require__(/*! @/api/shop
     /**
         * tab
         */
-    onTab: function onTab(type) {var _this11 = this;
+    onTab: function onTab(type) {var _this13 = this;
       this.TabShow = type;
       switch (type) {
         case 0:
@@ -753,7 +861,7 @@ var _shopUserAddress = _interopRequireDefault(__webpack_require__(/*! @/api/shop
         case 1:
           uni.createSelectorQuery().select(".evaluate-data").boundingClientRect(function (data) {//data - 各种参数
             uni.pageScrollTo({
-              scrollTop: _this11.PageScrollTop + data.top - 50,
+              scrollTop: _this13.PageScrollTop + data.top - 50,
               duration: 300 });
 
           }).exec();
@@ -761,7 +869,7 @@ var _shopUserAddress = _interopRequireDefault(__webpack_require__(/*! @/api/shop
         case 2:
           uni.createSelectorQuery().select(".products-introduction").boundingClientRect(function (data) {//data - 各种参数
             uni.pageScrollTo({
-              scrollTop: _this11.PageScrollTop + data.top - 50,
+              scrollTop: _this13.PageScrollTop + data.top - 50,
               duration: 300 });
 
           }).exec();

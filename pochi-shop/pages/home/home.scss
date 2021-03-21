@@ -416,6 +416,57 @@
 .new-product{
 	padding: 0 25rpx;
 	height: 350rpx;
+	.flash-sale{
+		position: relative;
+		width: 100%;
+		height: 100%;
+		.line{
+			position: absolute;
+			right: 0;
+			top: 50%;
+			width: 2rpx;
+			height: 80%;
+			background-color: #f9f9f9;
+			transform: translate(0,-50%);
+		}
+		.flash-title{
+			display: flex;
+			align-items: center;
+			// justify-content: space-between;
+			width: 100%;
+			height: 80rpx;
+			.pictrue{
+				display: flex;
+				align-items: center;
+				height: 100%;
+				image{
+					width: 118rpx;
+					height: 28rpx;
+				}
+			}
+			.date-time{
+				display: flex;
+				align-items: center;
+				margin-left: 5rpx;
+				.time{
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					width: 40rpx;
+					height: 40rpx;
+					background-color: $price-clor;
+					font-size: 24rpx;
+					color: #FFFFFF;
+					border-radius: 6rpx;
+				}
+				.da{
+					font-size: 34rpx;
+					color: #212121;
+					margin: 0 6rpx;
+				}
+			}
+		}
+	}
 	.product-title{
 		display: flex;
 		align-items: center;

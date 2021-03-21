@@ -74,6 +74,12 @@ public enum StateEnums {
     COMMENT_SIMPLE(1, "普通评价"),
     COMMENT_MCH(2, "商家回复"),
     COMMENT_REVIEW(3, "追评"),
+    /**
+     * 秒杀状态
+     */
+    SECKILL_NOTSTART(0,"未开始"),
+    SECKILL_START(1,"已开始"),
+    SECKILL_OVER(2, "已结束"),
     ;
     private Integer code;
     private String msg;

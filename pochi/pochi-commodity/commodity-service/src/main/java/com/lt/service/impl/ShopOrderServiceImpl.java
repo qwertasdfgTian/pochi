@@ -74,10 +74,10 @@ public class ShopOrderServiceImpl implements ShopOrderService{
         ShopUserAddress address = this.shopUserAddressMapper.selectById(addressId);
         // 2. 商品扣减库存
         for (OrderProductDto product : productDtoList) {
-            ShopProduct shopProduct=new ShopProduct();
-            shopProduct.setId(product.getProductId());
-            shopProduct.setStock(product.getCount());
-            this.shopProductMapper.updateById(shopProduct);
+//            ShopProduct shopProduct=new ShopProduct();
+//            shopProduct.setId(product.getProductId());
+//            shopProduct.setStock(product.getCount());
+            this.shopProductMapper.updateStock(product);
         }
         // 3. 计算总金额
         BigDecimal totalMoney = BigDecimal.ZERO;

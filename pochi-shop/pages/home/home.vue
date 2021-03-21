@@ -71,6 +71,45 @@
 						</view>
 					</view>
 				</view>
+				<!-- 限时抢购，好货精选 -->
+				<view class="new-product" v-if="SecKillProductList.length != 0">
+					<view class="flash-sale">
+						<view class="line"></view>
+						<view class="flash-title" @click="onSkip('flash')">
+							<view class="pictrue">
+								<image src="/static/xsqg_title.png" mode=""></image>
+							</view>
+							<view style="padding-left: 100rpx;" v-if="flag">
+								下一场秒杀开始还剩：
+							</view>
+							<view class="date-time" v-if="flag">
+								<text class="time">{{day}}</text>
+								<text class="da">:</text>
+								<text class="time">{{hour}}</text>
+								<text class="da">:</text>
+								<text class="time">{{min}}</text>
+								<text class="da">:</text>
+								<text class="time">{{sec}}</text>
+							</view>
+							<view style="padding-left: 400rpx;font-size: 26rpx;color:#a09f9f;" v-if="!flag">
+								秒杀进行中...
+							</view>
+						</view>
+						<view class="goods-list">
+							<view class="goods-list">
+								<view v-for="item in SecKillProductList" :key="item.id" class="list" @click="toProductInfo(item.id)">
+									<view class="pictrue">
+										<image :src="item.productPic"></image>
+									</view>
+									<view class="price">
+										<text class="selling-price">￥{{item.productPrice}}</text>
+										<text class="original-price">￥{{item.productOldPrice}}</text>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
 				<!-- 今日上新 -->
 				<view class="new-product">
 					<view class="product-title">
@@ -157,6 +196,7 @@
 	import noticeApi from '@/api/sys-notice.js'
 	import categoryApi from '@/api/shop-product-category.js'
 	import productApi from '@/api/shop-product.js'
+	import shopSecKillApi from '@/api/shop-seckill.js'
 	export default {
 		mixins: [MescrollMixin], // 使用mixin
 		components: {
@@ -165,6 +205,7 @@
 		},
 		data() {
 			return {
+				flag: true,
 				mescroll: null, // mescroll实例对象 (此行可删,mixins已默认)
 				// 下拉刷新的配置(可选, 绝大部分情况无需配置)
 				downOption: {},
@@ -190,6 +231,13 @@
 				classifyShow: 0,
 				// 页面高度
 				pageHeight: 500,
+				SecKillProductList: [],
+				nextSecKillTime: null,
+				CountDown: 1800,
+				day: 0,
+				hour: 0,
+				min: 0,
+				sec: 0
 			}
 		},
 		onReady() {
@@ -232,7 +280,9 @@
 				})
 			}	
 		},
-		onShow() {},
+		onShow() {
+			this.getAllShopSecKill()
+		},
 		onPageScroll(e) {
 			let scrollTop = e.scrollTop;
 			if (scrollTop > 0) {
@@ -252,6 +302,38 @@
 				this.getNavList()
 				this.getNewProduct()
 				this.getRecommendList()
+			},
+			// 查询所有的秒杀
+			getAllShopSecKill(){
+				shopSecKillApi.getAll().then(res => {
+					this.SecKillProductList = res.data.all
+					this.nextSecKillTime = res.data.nextSecKillTime
+					if(this.nextSecKillTime!=null){
+						this.flag=true
+						const seconds = this.nextSecKillTime / 1000.0;
+						this.CountDown = seconds
+						this.CountDownData()
+					}else{
+						this.flag=false
+					}
+				})	
+			},
+			/**
+			 * 倒计时
+			 */
+			CountDownData() {
+				setTimeout(() => {
+					if (this.CountDown <= 0) {
+						this.getAllShopSecKill()
+						return
+					}
+					this.CountDown--;
+					this.day = parseInt(this.CountDown / (24 * 60 * 60))
+					this.hour = parseInt(this.CountDown / (60 * 60) % 24);
+					this.min = parseInt(this.CountDown / 60 % 60);
+					this.sec = parseInt(this.CountDown % 60);	
+					this.CountDownData();
+				}, 1000)
 			},
 			// 查询轮播图
 			getBannerList() {

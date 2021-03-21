@@ -80,7 +80,7 @@
 				</swiper>
 			</view>
 			<!-- 价格 -->
-			<view class="price-info" v-show="type==0">
+			<view class="price-info" v-if="!(secKillflag)">
 				<view class="price">
 					<text class="min">￥</text>
 					<text class="max">{{String(product.price).split('.')[0]}}</text>
@@ -97,6 +97,44 @@
 					</view>
 				</view>
 			</view>
+				<!-- 限时抢购 -->
+				<view class="flash-price" v-if="secKillflag">
+					<view class="price-item">
+						<view class="icon-item">
+							<text class="iconfont icon-flash-sale"></text>
+						</view>
+						<view class="price">
+							<view class="current-price">
+								<text class="min">￥</text>
+								<text class="max">{{String(shopSeckillPrice).split('.')[0]}}</text>
+								<text class="min">.{{String(shopSeckillPrice).split('.')[1]?String(shopSeckillPrice).split('.')[1]:'00'}}</text>
+							</view>
+							<view class="original-price">
+								<text>￥{{product.price}}</text>
+							</view>
+						</view>
+						<view class="tag">
+							<text class="iconfont icon-flash-naozhong"></text>
+						</view>
+					</view>
+					<view class="time-item">
+						<view class="title" v-if="startflag">
+							<text>距结束还剩：</text>
+						</view>
+						<view class="title" v-if="!startflag">
+							<text>距开始还剩：</text>
+						</view>
+						<view class="time">
+							<text class="num">{{day}}</text>
+							<text class="dot">:</text>
+							<text class="num">{{hour}}</text>
+							<text class="dot">:</text>
+							<text class="num">{{min}}</text>
+							<text class="dot">:</text>
+							<text class="num">{{sec}}</text>
+						</view>
+					</view>
+				</view>
 			
 			<!-- 标题 -->
 			<view class="goods-title">
@@ -284,8 +322,11 @@
 				<view class="cart-add" @click="$refs['GoodsAttr'].show(2)">
 					<text>加入购物车</text>
 				</view>
-				<view class="buy-at" @click="$refs['GoodsAttr'].show(3)">
+				<view class="buy-at" @click="$refs['GoodsAttr'].show(3)" v-if="!startflag">
 					<text>立即购买</text>
+				</view>
+				<view class="buy-at" v-if="startflag">
+					<text>立即秒杀</text>
 				</view>
 			</view>
 		</view>
@@ -342,7 +383,7 @@
 	import collectionApi from '@/api/shop-product-collection.js'
 	import commentApi from '@/api/shop-order-comment.js'
 	import addressApi from '@/api/shop-user-address.js'
-
+	import shopSecKillApi from '@/api/shop-seckill.js'
 	export default {
 		components: {
 			GoodsServe,
@@ -384,7 +425,15 @@
 				type: 0,
 				commentDataPage: {},
 				address: null,
-				choseProductName: ''
+				choseProductName: '',
+				secKillflag: false,
+				startflag: false,
+				CountDown: 1800,
+				day: 0,
+				hour: 0,
+				min: 0,
+				sec: 0,
+				shopSeckillPrice: ''
 			};
 		},
 		onShow() {
@@ -404,11 +453,62 @@
 			this.saveHistory()
 			this.getCollection()
 			this.getComment()
+			this.getSecKill()
 		},
 		onPageScroll(e) {
 			this.PageScrollTop = e.scrollTop;
 		},
 		methods: {
+			getSecKill() {
+				shopSecKillApi.getSecKill(this.productId).then(res=>{
+					if(res.data==null){
+						this.secKillflag = false
+						this.startflag = false
+					}
+					if(res.data.beginSecKillTime!=null){
+						// 标记是秒杀的商品
+						this.secKillflag = true
+						const seconds = res.data.beginSecKillTime / 1000.0;
+						this.CountDown = seconds
+						this.CountDownData()
+					}
+					if(res.data.endSecKillTime!=null){
+						// 标记是秒杀的商品
+						this.secKillflag = true
+						// 标记可以秒杀
+						this.startflag = true
+						const seconds = res.data.endSecKillTime / 1000.0;
+						this.CountDown = seconds
+						this.CountDownData()
+					}
+					if(res.data.shopSeckill!=null){
+						this.shopSeckillPrice=res.data.shopSeckill.productPrice
+					}
+				})
+			},
+			/**
+			 * 倒计时
+			 */
+			CountDownData() {
+				setTimeout(() => {
+					if (this.CountDown <= 0) {
+						if(this.startflag==true){
+							uni.showToast({
+								icon: 'none',
+								title:'秒杀已结束'
+							})
+						}
+						this.getSecKill()
+						return
+					}
+					this.CountDown--;
+					this.day = parseInt(this.CountDown / (24 * 60 * 60))
+					this.hour = parseInt(this.CountDown / (60 * 60) % 24);
+					this.min = parseInt(this.CountDown / 60 % 60);
+					this.sec = parseInt(this.CountDown % 60);	
+					this.CountDownData();
+				}, 1000)
+			},
 			choseAddress(item) {
 				uni.setStorageSync('Address', item)
 				this.$refs.popupRef.close()// 或者 boolShow = false
