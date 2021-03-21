@@ -581,9 +581,10 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-          justify-content: center;
+  -webkit-box-pack: left;
+  -webkit-justify-content: left;
+          justify-content: left;
+  padding-left: 15rpx;
   width: 100%;
 }
 .flash-price .time-item .title text.data-v-ac2c40f4 {
