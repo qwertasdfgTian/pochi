@@ -11,24 +11,16 @@
 		<view class="head-bg">
 			<view class="session" :class="{'activity':scrollTop > 50}">
 				<view class="list action">
-					<text class="time">16:00</text>
+					<text class="status">全部</text>
+				</view>
+				<view class="list">
 					<text class="status">抢购中</text>
 				</view>
 				<view class="list">
-					<text class="time">18:00</text>
 					<text class="status">即将开始</text>
 				</view>
 				<view class="list">
-					<text class="time">20:00</text>
-					<text class="status">即将开始</text>
-				</view>
-				<view class="list">
-					<text class="time">22:00</text>
-					<text class="status">即将开始</text>
-				</view>
-				<view class="list">
-					<text class="time">00:00</text>
-					<text class="status">即将开始</text>
+					<text class="status">未开始</text>
 				</view>
 			</view>
 		</view>
@@ -53,7 +45,7 @@
 								<text>立即抢购</text>
 							</view>
 							<view class="schedule">
-								<view class="num">已售50%</view>
+								<view class="num">已售100%</view>
 								<view class="bar">
 									<text></text>
 								</view>

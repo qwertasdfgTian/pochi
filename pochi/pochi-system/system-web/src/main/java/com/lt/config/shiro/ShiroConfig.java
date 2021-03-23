@@ -57,6 +57,8 @@ public class ShiroConfig {
         filterMap.put("/sysUser/login","anon");
         filterMap.put("/wx/**","anon");
         filterMap.put("/pay/callback*/**","anon");
+        // 放行秒杀接口方便测试
+        filterMap.put("/shopSecKill/toSecKill*/**","anon");
         filterMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
         return shiroFilterFactoryBean;

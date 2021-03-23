@@ -1922,7 +1922,30 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 124:
+/***/ 100:
+/*!***********************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-order-pay.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var groupName = 'orderPay';var _default =
+{
+  /**
+   * 根据创建人查询本月累计消费
+   */
+  getConsumption: function getConsumption() {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/getConsumption"),
+      method: 'get' });
+
+  } };exports.default = _default;
+
+/***/ }),
+
+/***/ 125:
 /*!********************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-coupon.js ***!
   \********************************************************/
@@ -2005,7 +2028,7 @@ var groupName = 'shopCoupon';var _default =
 
 /***/ }),
 
-/***/ 125:
+/***/ 126:
 /*!******************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-pack.js ***!
   \******************************************************/
@@ -2080,7 +2103,7 @@ var groupName = 'shopPack';var _default =
 
 /***/ }),
 
-/***/ 126:
+/***/ 127:
 /*!***************************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-order-comment.js ***!
   \***************************************************************/
@@ -2121,7 +2144,7 @@ var groupName = 'orderComment';var _default =
 
 /***/ }),
 
-/***/ 127:
+/***/ 128:
 /*!**************************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-user-address.js ***!
   \**************************************************************/
@@ -10611,7 +10634,7 @@ module.exports = function isAxiosError(payload) {
 
 /***/ }),
 
-/***/ 504:
+/***/ 505:
 /*!********************************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/node_modules/js-md5/src/md5.js ***!
   \********************************************************************/
@@ -10644,7 +10667,7 @@ module.exports = function isAxiosError(payload) {
     root = self;
   }
   var COMMON_JS = !root.JS_MD5_NO_COMMON_JS && typeof module === 'object' && module.exports;
-  var AMD =  true && __webpack_require__(/*! !webpack amd options */ 505);
+  var AMD =  true && __webpack_require__(/*! !webpack amd options */ 506);
   var ARRAY_BUFFER = !root.JS_MD5_NO_ARRAY_BUFFER && typeof ArrayBuffer !== 'undefined';
   var HEX_CHARS = '0123456789abcdef'.split('');
   var EXTRA = [128, 32768, 8388608, -2147483648];
@@ -11306,7 +11329,7 @@ module.exports = function isAxiosError(payload) {
 
 /***/ }),
 
-/***/ 505:
+/***/ 506:
 /*!****************************************!*\
   !*** (webpack)/buildin/amd-options.js ***!
   \****************************************/
@@ -11320,7 +11343,7 @@ module.exports = __webpack_amd_options__;
 
 /***/ }),
 
-/***/ 544:
+/***/ 545:
 /*!*****************************************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/mescroll-uni/mescroll-uni.js ***!
   \*****************************************************************************/
@@ -12131,7 +12154,7 @@ MeScroll.prototype.preventDefault = function (e) {
 
 /***/ }),
 
-/***/ 545:
+/***/ 546:
 /*!************************************************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/mescroll-uni/mescroll-uni-option.js ***!
   \************************************************************************************/
@@ -12178,7 +12201,7 @@ GlobalOption;exports.default = _default;
 
 /***/ }),
 
-/***/ 546:
+/***/ 547:
 /*!***************************************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/mescroll-uni/wxs/mixins.js ***!
   \***************************************************************************/
@@ -12830,7 +12853,98 @@ var groupName = 'product';var _default =
 
 /***/ }),
 
-/***/ 621:
+/***/ 61:
+/*!*********************************************************!*\
+  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-seckill.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var groupName = 'shopSecKill';var _default =
+{
+  /**
+   * 添加
+   */
+  save: function save(shopSecKill) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/save"),
+      method: 'post',
+      data: shopSecKill });
+
+  },
+  /**
+      * 分页查询
+      * @param {分页查询} page
+      */
+  getByPage: function getByPage(page) {// 分页查询
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/getByPage"),
+      method: 'post',
+      data: page });
+
+  },
+  /**
+      * 删除
+      * @param {*} id
+      */
+  delete: function _delete(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/delete/").concat(id),
+      method: 'delete' });
+
+  },
+  /**
+      * 根据id查询
+      * @param {*} id
+      */
+  get: function get(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/get/").concat(id),
+      method: 'get' });
+
+  },
+  /**
+      * 结束活动
+      */
+  down: function down(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/down/").concat(id),
+      method: 'put' });
+
+  },
+  /**
+      * 查询所有开始和未开始的秒杀
+      */
+  getAll: function getAll() {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/getAll"),
+      method: 'get' });
+
+  },
+  /**
+      * 查询是否是秒杀商品
+      */
+  getSecKill: function getSecKill(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/getSecKill/").concat(id),
+      method: 'get' });
+
+  },
+  /**
+      * 去秒杀
+      */
+  toSecKill: function toSecKill(id) {
+    return (0, _request.default)({
+      url: "/".concat(groupName, "/toSecKill/").concat(id),
+      method: 'get' });
+
+  } };exports.default = _default;
+
+/***/ }),
+
+/***/ 622:
 /*!*********************************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/tki-qrcode/qrcode.js ***!
   \*********************************************************************/
@@ -14043,7 +14157,7 @@ QRCode;exports.default = _default;
 
 /***/ }),
 
-/***/ 634:
+/***/ 635:
 /*!*******************************************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/uni-swipe-action-item/mpwxs.js ***!
   \*******************************************************************************/
@@ -14169,7 +14283,7 @@ QRCode;exports.default = _default;
 
 /***/ }),
 
-/***/ 644:
+/***/ 645:
 /*!*************************************************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/simple-address/city-data/province.js ***!
   \*************************************************************************************/
@@ -14323,7 +14437,7 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 645:
+/***/ 646:
 /*!*********************************************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/simple-address/city-data/city.js ***!
   \*********************************************************************************/
@@ -15841,7 +15955,7 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 646:
+/***/ 647:
 /*!*********************************************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/components/simple-address/city-data/area.js ***!
   \*********************************************************************************/
@@ -28400,7 +28514,7 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 69:
+/***/ 70:
 /*!*******************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-brand.js ***!
   \*******************************************************/
@@ -28489,89 +28603,7 @@ var groupName = 'brand';var _default =
 
 /***/ }),
 
-/***/ 747:
-/*!*********************************************************!*\
-  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-seckill.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-var groupName = 'shopSecKill';var _default =
-{
-  /**
-   * 添加
-   */
-  save: function save(shopSecKill) {
-    return (0, _request.default)({
-      url: "/".concat(groupName, "/save"),
-      method: 'post',
-      data: shopSecKill });
-
-  },
-  /**
-      * 分页查询
-      * @param {分页查询} page
-      */
-  getByPage: function getByPage(page) {// 分页查询
-    return (0, _request.default)({
-      url: "/".concat(groupName, "/getByPage"),
-      method: 'post',
-      data: page });
-
-  },
-  /**
-      * 删除
-      * @param {*} id
-      */
-  delete: function _delete(id) {
-    return (0, _request.default)({
-      url: "/".concat(groupName, "/delete/").concat(id),
-      method: 'delete' });
-
-  },
-  /**
-      * 根据id查询
-      * @param {*} id
-      */
-  get: function get(id) {
-    return (0, _request.default)({
-      url: "/".concat(groupName, "/get/").concat(id),
-      method: 'get' });
-
-  },
-  /**
-      * 结束活动
-      */
-  down: function down(id) {
-    return (0, _request.default)({
-      url: "/".concat(groupName, "/down/").concat(id),
-      method: 'put' });
-
-  },
-  /**
-      * 查询所有开始和未开始的秒杀
-      */
-  getAll: function getAll() {
-    return (0, _request.default)({
-      url: "/".concat(groupName, "/getAll"),
-      method: 'get' });
-
-  },
-  /**
-      * 查询是否是秒杀商品
-      */
-  getSecKill: function getSecKill(id) {
-    return (0, _request.default)({
-      url: "/".concat(groupName, "/getSecKill/").concat(id),
-      method: 'get' });
-
-  } };exports.default = _default;
-
-/***/ }),
-
-/***/ 86:
+/***/ 87:
 /*!***********************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-cart-item.js ***!
   \***********************************************************/
@@ -28635,7 +28667,7 @@ var groupName = 'cartItem';var _default =
 
 /***/ }),
 
-/***/ 95:
+/***/ 96:
 /*!******************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-user.js ***!
   \******************************************************/
@@ -28668,7 +28700,7 @@ var groupName = 'user';var _default =
 
 /***/ }),
 
-/***/ 96:
+/***/ 97:
 /*!*****************************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-prodict-history.js ***!
   \*****************************************************************/
@@ -28730,7 +28762,7 @@ var groupName = 'history';var _default =
 
 /***/ }),
 
-/***/ 97:
+/***/ 98:
 /*!********************************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-product-collection.js ***!
   \********************************************************************/
@@ -28784,7 +28816,7 @@ var groupName = 'collection';var _default =
 
 /***/ }),
 
-/***/ 98:
+/***/ 99:
 /*!*******************************************************!*\
   !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-order.js ***!
   \*******************************************************/
@@ -28876,29 +28908,6 @@ var groupName = 'order';var _default =
   orderRemainingTime: function orderRemainingTime(createTime) {
     return (0, _request.default)({
       url: "/".concat(groupName, "/orderRemainingTime/").concat(createTime),
-      method: 'get' });
-
-  } };exports.default = _default;
-
-/***/ }),
-
-/***/ 99:
-/*!***********************************************************!*\
-  !*** F:/程序设计/毕业设计/pochi/pochi-shop/api/shop-order-pay.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-var groupName = 'orderPay';var _default =
-{
-  /**
-   * 根据创建人查询本月累计消费
-   */
-  getConsumption: function getConsumption() {
-    return (0, _request.default)({
-      url: "/".concat(groupName, "/getConsumption"),
       method: 'get' });
 
   } };exports.default = _default;

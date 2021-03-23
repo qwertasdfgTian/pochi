@@ -40,6 +40,18 @@ public class ShopSeckillDto implements Serializable {
     private String productName;
 
     /**
+     * 秒杀商品品牌
+     */
+    @NotBlank(message = "秒杀商品的品牌名称不能是空")
+    private String brandName;
+
+    /**
+     * 秒杀商品的分类Id
+     */
+    @NotNull(message = "秒杀商品的分类ID不能是空")
+    private Long categoryId;
+
+    /**
      * 秒杀开始时间
      */
     @NotBlank(message = "秒杀开始的时间不能是空")
@@ -78,11 +90,5 @@ public class ShopSeckillDto implements Serializable {
      * 秒杀活动状态(0未开始，1进行中，2已结束)
      */
     private Integer status;
-
-    /**
-     * 秒杀限额
-     */
-    @NotNull(message = "秒杀限额不能是空")
-    private Integer quota;
 
 }

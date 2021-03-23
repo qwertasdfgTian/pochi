@@ -43,7 +43,8 @@
 			</view>
 			<view class="attr-btn">
 				<view class="add-cart" v-if="BuyType === 1" @click="addCart()">加入购物车</view>
-				<view class="add-buy" v-if="BuyType === 1" @click="onConfirm(BuyType)">立即购买</view>
+				<view class="add-buy" v-if="BuyType === 1 && !startflag" @click="onConfirm(BuyType)">立即购买</view>
+				<view class="add-buy" v-if="BuyType === 1 && startflag" @click="toSecKill()">立即秒杀</view>
 				<view class="confirm" v-if="BuyType === 3" @click="onConfirm(BuyType)">确定</view>
 				<view class="confirm" v-if="BuyType === 2" @click="addCart()">确定</view>
 			</view>
@@ -53,6 +54,7 @@
 
 <script>
 	import cartApi from '@/api/shop-cart-item.js'
+	import shopSecKillApi from '@/api/shop-seckill.js'
 	export default {
 		props: {
 			// 套装列表
@@ -74,6 +76,7 @@
 				SizeIndex: 0,
 				// 购买类型
 				BuyType: 0,
+				startflag: false
 			};
 		},
 		computed:{
@@ -82,6 +85,26 @@
 			}
 		},
 		methods:{
+			// 去秒杀
+			toSecKill() {
+				shopSecKillApi.toSecKill(this.currentItem.productId).then(res=>{
+					uni.showToast({
+					  icon:'none',
+					  title:res.msg
+					})
+				})
+			},
+			getSecKill() {
+				shopSecKillApi.getSecKill(this.currentItem.productId).then(res=>{
+					if(res.data==null){
+						this.startflag = false
+					}
+					if(res.data.endSecKillTime!=null){
+						// 标记可以秒杀
+						this.startflag = true
+					}
+				})
+			},
 			// 改变数量
 			changeQuantity(item, num) {
 				this.productCount = this.productCount + num
@@ -111,6 +134,7 @@
 			show(type){
 				this.BuyType = type;
 				this.isShow = true;
+				this.getSecKill()
 			},
 			hide(){
 				this.isShow = false;
@@ -123,6 +147,8 @@
 			 */
 			onAttrSize(idx){
 				this.currentIndex = idx
+				// 判断是不是秒杀的商品
+				this.getSecKill()
 				this.$emit("pChoseProduct",this.currentItem.specName+"，"+this.productCount+"个")
 			},
 			/**

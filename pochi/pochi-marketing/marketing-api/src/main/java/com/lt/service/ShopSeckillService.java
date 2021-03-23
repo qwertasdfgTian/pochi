@@ -61,4 +61,10 @@ public interface ShopSeckillService {
      */
     ProductSecKillVo getSecKill(Long id) throws ParseException;
 
+    /**
+     * 扣减库存
+     * @return
+     */
+    void updateStock(Long id);
+
 }

@@ -5,6 +5,7 @@ import com.lt.pojo.ShopOrder;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.lt.pojo.ShopOrderHistory;
 import com.lt.pojo.ShopOrderPay;
+import com.lt.pojo.ShopSeckill;
 import com.lt.vo.*;
 
 import java.util.List;
@@ -115,4 +116,10 @@ public interface ShopOrderService {
      * @Param: orderId
      */
     ShopOrderPay cancelOrderById(Long orderId,LoginUser loginUser);
+
+    /**
+     * 创建秒杀订单
+     * @Param: orderId
+     */
+    ShopOrder createSecKillOrder(ShopSeckill shopSeckill, LoginUser loginUser);
 }

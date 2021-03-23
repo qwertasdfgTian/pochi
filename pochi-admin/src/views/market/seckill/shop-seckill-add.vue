@@ -45,19 +45,14 @@
         </el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="8" :offset="0">
+        <el-col :span="12" :offset="0">
           <el-form-item label="价格设置" prop="productPrice">
             <el-input-number v-model="shopSecKill.productPrice" :min="0" style="width: 100%" controls-position="right" />
           </el-form-item>
         </el-col>
-        <el-col :span="8" :offset="0">
+        <el-col :span="12" :offset="0">
           <el-form-item label="库存设置" prop="stock">
             <el-input-number v-model="shopSecKill.stock" :min="1" style="width: 100%" controls-position="right" clearable />
-          </el-form-item>
-        </el-col>
-        <el-col :span="8" :offset="0">
-          <el-form-item label="每人限购" prop="quota">
-            <el-input-number v-model="shopSecKill.quota" :min="1" style="width: 100%" controls-position="right" clearable />
           </el-form-item>
         </el-col>
       </el-row>
@@ -104,7 +99,9 @@ export default {
         id: '',
         name: '',
         pic: '',
-        price: null
+        price: null,
+        brandName: '',
+        categoryId: ''
       },
       // 商品选择弹窗
       selectDialog: false,
@@ -161,6 +158,8 @@ export default {
       this.shopSecKill.productPic = this.shopProduct.pic
       this.shopSecKill.productOldPrice = this.shopProduct.price
       this.shopSecKill.id = this.shopProduct.id
+      this.shopSecKill.brandName = this.shopProduct.brandName
+      this.shopSecKill.categoryId = this.shopProduct.categoryId  
     },
     // 选择商品
     selectProduct() {

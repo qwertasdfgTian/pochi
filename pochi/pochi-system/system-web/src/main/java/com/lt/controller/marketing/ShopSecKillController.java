@@ -1,24 +1,35 @@
 package com.lt.controller.marketing;
 
+import com.lt.constant.CoreConstant;
 import com.lt.controller.BaseController;
 import com.lt.dto.ShopSeckillDto;
 import com.lt.enums.StateEnums;
 import com.lt.exception.PochiException;
 import com.lt.pojo.ShopCoupon;
+import com.lt.pojo.ShopOrder;
 import com.lt.pojo.ShopSeckill;
+import com.lt.service.ShopOrderService;
 import com.lt.service.ShopSeckillService;
 import com.lt.utils.DateUtils;
 import com.lt.utils.ShiroUtils;
 import com.lt.vo.*;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.apache.dubbo.config.annotation.Reference;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: Mr.Tian
@@ -31,6 +42,12 @@ public class ShopSecKillController extends BaseController {
 
     @Reference
     private ShopSeckillService shopSeckillService;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
+    @Reference
+    private ShopOrderService shopOrderService;
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     /**
      * 添加
@@ -143,4 +160,47 @@ public class ShopSecKillController extends BaseController {
         return new Result<>(secKill);
     }
 
+    /**
+     * 去秒杀
+     * @return
+     */
+    @RequestMapping(value = "/toSecKill/{id}", method = RequestMethod.GET)
+    public Result<?> toSecKill(@PathVariable Long id) throws ParseException {
+        // 1.判断是否活动过期或者是活动还没开始
+        ShopSeckill shopSeckill = this.shopSeckillService.get(id);
+        String nowDate = DateUtils.newDate();
+        if(shopSeckill.getBeginTime().compareTo(nowDate)>0||shopSeckill.getEndTime().compareTo(nowDate)<0){
+            return new Result<>("没在秒杀活动时间内");
+        }
+        // 2.判断是否到达抢购上限
+        LoginUser loginUser = ShiroUtils.getLoginUser();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long begintime = df.parse(shopSeckill.getBeginTime()).getTime();
+        long endtime = df.parse(shopSeckill.getEndTime()).getTime();
+        Long time=endtime-begintime;
+        if( this.stringRedisTemplate.opsForValue().get(shopSeckill.getId()+"_"+loginUser.getId())==null){
+            this.stringRedisTemplate.opsForValue().set(shopSeckill.getId()+"_"+loginUser.getId().toString(),"exist",time, TimeUnit.MILLISECONDS);
+        }else{
+            return new Result<>("您已到达抢购上限");
+        }
+//        try{
+            // 3.扣减库存
+            this.shopSeckillService.updateStock(id);
+            // 4.创建订单
+            ShopOrder order = this.shopOrderService.createSecKillOrder(shopSeckill, loginUser);
+            // 发送延时消息
+            System.out.println("当前的时间是："+DateUtils.newDateTime());
+            this.rabbitTemplate.convertAndSend("dealy",order.getId(), new MessagePostProcessor() {
+                @Override
+                public Message postProcessMessage(Message message) throws AmqpException {
+                    message.getMessageProperties().setExpiration(Long.parseLong(shopSeckill.getCancelTime())*60*1000+"");
+                    return message;
+                }
+            });
+            System.out.println("消息发送成功");
+//        }catch (Exception e){
+//            throw new PochiException("秒杀失败");
+//        }
+        return new Result<>("秒杀成功");
+    }
 }

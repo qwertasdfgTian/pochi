@@ -1,16 +1,21 @@
 package com.lt.service.impl;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lt.dto.ShopSeckillDto;
 import com.lt.enums.StateEnums;
 import com.lt.mapper.ShopSeckillMapper;
+import com.lt.pojo.ShopCoupon;
+import com.lt.pojo.ShopCouponHistory;
+import com.lt.pojo.ShopProduct;
 import com.lt.pojo.ShopSeckill;
 import com.lt.service.ShopSeckillService;
 import com.lt.utils.DateUtils;
@@ -112,10 +117,7 @@ public class ShopSeckillServiceImpl implements ShopSeckillService{
     @Override
     public List<ShopSeckill> getAll() {
         QueryWrapper qw=new QueryWrapper();
-        List<Integer> list=new ArrayList<>();
-        list.add(StateEnums.SECKILL_START.getCode());
-        list.add(StateEnums.SECKILL_NOTSTART.getCode());
-        qw.in(ShopSeckill.COL_STATUS,list);
+        qw.gt(ShopSeckill.COL_END_TIME,DateUtils.newDateTime());
         qw.eq(ShopSeckill.COL_DELETED,StateEnums.NOT_DELETED.getCode());
         qw.orderByAsc(ShopSeckill.COL_BEGIN_TIME);
         return this.shopseckillMapper.selectList(qw);
@@ -136,17 +138,23 @@ public class ShopSeckillServiceImpl implements ShopSeckillService{
             if(begindate.getTime()-now.getTime()<=0 && enddate.getTime()-now.getTime()>=0){
                 // 已经开始记录结束时间
                 productSecKillVo.setEndSecKillTime(enddate.getTime()-now.getTime());
-                this.updateSecKillStatus();
             }else if(begindate.getTime()-now.getTime()>0){
                 // 说明没有开始记录距离开始的时间
                 productSecKillVo.setBeginSecKillTime(begindate.getTime()-now.getTime());
-                this.updateSecKillStatus();
             }else {
-                this.updateSecKillStatus();
                 return null;
             }
             return productSecKillVo;
         }
         return null;
     }
+
+    @Override
+    public void updateStock(Long id) {
+        ShopSeckill shopSeckill=this.shopseckillMapper.selectById(id);
+        shopSeckill.setStock(shopSeckill.getStock()-1);
+        this.shopseckillMapper.updateById(shopSeckill);
+//        this.shopseckillMapper.updateStock(id);
+    }
+
 }

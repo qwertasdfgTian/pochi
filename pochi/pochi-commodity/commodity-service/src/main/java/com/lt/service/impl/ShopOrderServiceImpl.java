@@ -74,9 +74,6 @@ public class ShopOrderServiceImpl implements ShopOrderService{
         ShopUserAddress address = this.shopUserAddressMapper.selectById(addressId);
         // 2. 商品扣减库存
         for (OrderProductDto product : productDtoList) {
-//            ShopProduct shopProduct=new ShopProduct();
-//            shopProduct.setId(product.getProductId());
-//            shopProduct.setStock(product.getCount());
             this.shopProductMapper.updateStock(product);
         }
         // 3. 计算总金额
@@ -447,6 +444,58 @@ public class ShopOrderServiceImpl implements ShopOrderService{
         return null;
     }
 
+    @Override
+    public ShopOrder createSecKillOrder(ShopSeckill shopSeckill, LoginUser loginUser) {
+        // 查询地址
+        QueryWrapper qw=new QueryWrapper();
+        qw.eq(ShopUserAddress.COL_USER_ID,loginUser.getId());
+        qw.eq(ShopUserAddress.COL_DEFAULT_STATUS,StateEnums.ADDRESS_DEFAULT.getCode());
+        ShopUserAddress address = this.shopUserAddressMapper.selectOne(qw);
+        // 4. 存入订单表、订单项表、订单历史表
+        ShopOrder order = new ShopOrder();
+        order.setId(idWorker.nextId());
+        order.setCreateBy(loginUser.getUsername());
+        order.setTotalAmount(shopSeckill.getProductOldPrice());
+        order.setPayAmount(shopSeckill.getProductPrice());
+        order.setCouponAmount(BigDecimal.ZERO);
+        order.setDeliveryCompany("菜鸟快递");
+        order.setDeliverySn(idWorker.nextId() + "");
+        order.setReceiverName(address.getName());
+        order.setReceiverPhone(address.getPhoneNumber());
+        order.setReceiverPostCode("061200");
+        order.setReceiverProvince(address.getProvince());
+        order.setReceiverCity(address.getCity());
+        order.setReceiverRegion(address.getRegion());
+        order.setReceiverDetailAddress(address.getDetailAddress());
+        order.setCreateTime(DateUtils.newDateTime());
+        order.setOrderType(OrderStateEnum.OrderType_SecKill.getCode());
+        order.setFreightAmount(BigDecimal.ZERO);
+
+        ShopOrderHistory orderHistory = new ShopOrderHistory();
+        orderHistory.setId(idWorker.nextId());
+        orderHistory.setOrderId(order.getId());
+        orderHistory.setOperateMan(OperateEnum.USER.getType());
+        orderHistory.setOrderStatus(OrderStateEnum.WAIT_PAY.getCode());
+        // 构造订单项
+        ShopOrderItem item = new ShopOrderItem();
+        item.setId(idWorker.nextId());
+        item.setCreateTime(DateUtils.newDateTime());
+        item.setOrderId(order.getId());
+        item.setProductId(shopSeckill.getId());
+        item.setProductPic(shopSeckill.getProductPic());
+        item.setProductName(shopSeckill.getProductName());
+        item.setProductBrand(shopSeckill.getBrandName());
+        item.setProductPrice(shopSeckill.getProductPrice());
+        item.setProductQuantity(1);
+        item.setProductCategoryId(shopSeckill.getCategoryId());
+        item.setIntegration(0);
+        // 订单、订单项、订单历史入库，商品库存扣减
+        this.shopOrderMapper.insert(order);
+        this.shopOrderHistoryMapper.insert(orderHistory);
+        this.shopOrderItemMapper.insert(item);
+        return order;
+    }
+
     /**
      * 保存订单
      *
@@ -519,12 +568,6 @@ public class ShopOrderServiceImpl implements ShopOrderService{
         this.shopOrderHistoryMapper.insert(orderHistory);
         for (ShopOrderItem shopOrderItem : shopOrderItemList) {
             this.shopOrderItemMapper.insert(shopOrderItem);
-        }
-        for (ShopProduct product : productList) {
-            ShopProduct shopProduct =new ShopProduct();
-            shopProduct.setId(product.getId());
-            shopProduct.setStock(product.getStock());
-            this.shopProductMapper.updateById(shopProduct);
         }
         return order;
     }

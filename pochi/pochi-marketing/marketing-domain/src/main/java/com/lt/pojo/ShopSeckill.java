@@ -12,6 +12,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,6 +43,18 @@ public class ShopSeckill implements Serializable {
      */
     @TableField(value = "product_name")
     private String productName;
+
+    /**
+     * 秒杀商品品牌
+     */
+    @TableField(value = "brand_name")
+    private String brandName;
+
+    /**
+     * 秒杀商品的分类Id
+     */
+    @TableField(value = "category_id")
+    private Long categoryId;
 
     /**
      * 秒杀开始时间
@@ -82,12 +97,6 @@ public class ShopSeckill implements Serializable {
      */
     @TableField(value = "status")
     private Integer status;
-
-    /**
-     * 秒杀限额
-     */
-    @TableField(value = "quota")
-    private Integer quota;
 
     /**
      * 创建时间
@@ -138,8 +147,6 @@ public class ShopSeckill implements Serializable {
     public static final String COL_CANCEL_TIME = "cancel_time";
 
     public static final String COL_STATUS = "status";
-
-    public static final String COL_QUOTA = "quota";
 
     public static final String COL_CREATE_TIME = "create_time";
 

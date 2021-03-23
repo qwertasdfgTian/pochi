@@ -35,6 +35,12 @@ public enum OrderStateEnum {
      * 支付失败
      */
     PAY_FAIL(-1, "支付失败"),
+
+    /**
+     * 订单类型
+     */
+    OrderType_ORDINARY(0,"普通订单"),
+    OrderType_SecKill(1,"秒杀订单"),
     ;
 
     private Integer code;

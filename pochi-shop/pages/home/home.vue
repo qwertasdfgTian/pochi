@@ -75,7 +75,7 @@
 				<view class="new-product" v-if="SecKillProductList.length != 0">
 					<view class="flash-sale">
 						<view class="line"></view>
-						<view class="flash-title" @click="onSkip('flash')">
+						<view class="flash-title">
 							<view class="pictrue">
 								<image src="/static/xsqg_title.png" mode=""></image>
 							</view>

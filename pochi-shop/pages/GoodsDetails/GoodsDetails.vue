@@ -325,7 +325,7 @@
 				<view class="buy-at" @click="$refs['GoodsAttr'].show(3)" v-if="!startflag">
 					<text>立即购买</text>
 				</view>
-				<view class="buy-at" v-if="startflag">
+				<view class="buy-at" v-if="startflag" @click="toSecKill()">
 					<text>立即秒杀</text>
 				</view>
 			</view>
@@ -459,6 +459,15 @@
 			this.PageScrollTop = e.scrollTop;
 		},
 		methods: {
+			// 去秒杀
+			toSecKill() {
+				shopSecKillApi.toSecKill(this.productId).then(res=>{
+					uni.showToast({
+					  icon:'none',
+					  title:res.msg
+					})
+				})
+			},
 			getSecKill() {
 				shopSecKillApi.getSecKill(this.productId).then(res=>{
 					if(res.data==null){
