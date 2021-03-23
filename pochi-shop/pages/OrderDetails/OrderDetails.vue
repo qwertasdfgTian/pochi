@@ -230,7 +230,6 @@
 		onLoad(param) {
 			this.orderId = param.id
 			this.getById()
-			this.CountDownData();
 		},
 		methods:{
 			/**
@@ -331,10 +330,9 @@
 						const creatTime = res.data.createTime
 						orderApi.orderRemainingTime(creatTime).then(r => {
 							if(res.data){
-								const seconds = res.data / 1000.0;
+								const seconds = r.data / 1000.0;
 								this.CountDown = seconds
-							}else {
-								this.CountDown = 1
+								this.CountDownData();
 							}
 						})
 					}else{
