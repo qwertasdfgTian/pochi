@@ -19,6 +19,7 @@ import com.lt.pojo.ShopProduct;
 import com.lt.pojo.ShopSeckill;
 import com.lt.service.ShopSeckillService;
 import com.lt.utils.DateUtils;
+import com.lt.utils.IdWorker;
 import com.lt.vo.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.Method;
@@ -31,14 +32,16 @@ public class ShopSeckillServiceImpl implements ShopSeckillService{
 
     @Autowired
     private ShopSeckillMapper shopseckillMapper;
+    @Autowired
+    private IdWorker idWorker;
 
     @Override
     public void save(ShopSeckillDto secKillDto, LoginUser loginUser) {
-        Long secKillId = secKillDto.getId();
         // 复制属性
         ShopSeckill shopSeckill=new ShopSeckill();
         BeanUtils.copyProperties(secKillDto, shopSeckill);
-        shopSeckill.setId(secKillId);
+        shopSeckill.setId(idWorker.nextId());
+        shopSeckill.setProductId(secKillDto.getProductId());
         shopSeckill.setCreateBy(loginUser.getUsername());
         shopSeckill.setUpdateBy(loginUser.getUsername());
         if(DateUtils.newDateTime().compareTo(shopSeckill.getEndTime()) >= 0){
@@ -153,8 +156,14 @@ public class ShopSeckillServiceImpl implements ShopSeckillService{
     public void updateStock(Long id) {
         ShopSeckill shopSeckill=this.shopseckillMapper.selectById(id);
         shopSeckill.setStock(shopSeckill.getStock()-1);
+        shopSeckill.setUpdateTime(DateUtils.newDateTime());
         this.shopseckillMapper.updateById(shopSeckill);
-//        this.shopseckillMapper.updateStock(id);
+        //this.shopseckillMapper.updateStock(id);
+    }
+
+    @Override
+    public String selectCancelTime(Long productId) {
+        return this.shopseckillMapper.selectById(productId).getCancelTime();
     }
 
 }

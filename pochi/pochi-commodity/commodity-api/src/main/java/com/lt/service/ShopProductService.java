@@ -1,5 +1,6 @@
 package com.lt.service;
 
+import com.lt.dto.OrderProductDto;
 import com.lt.dto.ShopProductDto;
 import com.lt.dto.ShopProductSearchDto;
 import com.lt.es.ShopProductEs;
@@ -137,4 +138,8 @@ public interface ShopProductService {
      */
     List<ShopProduct> getByIds(List<Long> ids);
 
+    /**
+     * 还原库存
+     */
+    void updateStock(OrderProductDto orderProductDto);
 }

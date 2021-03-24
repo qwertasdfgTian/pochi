@@ -1,11 +1,8 @@
 package com.lt.service;
 
 import com.lt.dto.OrderDto;
-import com.lt.pojo.ShopOrder;
+import com.lt.pojo.*;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lt.pojo.ShopOrderHistory;
-import com.lt.pojo.ShopOrderPay;
-import com.lt.pojo.ShopSeckill;
 import com.lt.vo.*;
 
 import java.util.List;
@@ -122,4 +119,7 @@ public interface ShopOrderService {
      * @Param: orderId
      */
     ShopOrder createSecKillOrder(ShopSeckill shopSeckill, LoginUser loginUser);
+
+    // 查询详情
+    ShopOrderItem selectItem(Long id);
 }

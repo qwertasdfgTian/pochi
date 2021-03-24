@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lt.*;
 import com.lt.constant.CoreConstant;
+import com.lt.dto.OrderProductDto;
 import com.lt.dto.ShopProductDto;
 import com.lt.dto.ShopProductSearchDto;
 import com.lt.enums.ProductSortEnum;
@@ -378,6 +379,11 @@ public class ShopProductServiceImpl implements ShopProductService {
     @Override
     public List<ShopProduct> getByIds(List<Long> ids) {
         return this.shopProductMapper.selectBatchIds(ids);
+    }
+
+    @Override
+    public void updateStock(OrderProductDto orderProductDto) {
+        this.shopProductMapper.updateStock(orderProductDto);
     }
 
     /**

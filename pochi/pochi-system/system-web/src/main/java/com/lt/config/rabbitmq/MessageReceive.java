@@ -1,8 +1,11 @@
 package com.lt.config.rabbitmq;
 
+import com.lt.dto.OrderProductDto;
 import com.lt.enums.OrderStateEnum;
 import com.lt.pojo.ShopOrder;
+import com.lt.pojo.ShopOrderItem;
 import com.lt.service.ShopOrderService;
+import com.lt.service.ShopProductService;
 import com.lt.utils.DateUtils;
 import com.rabbitmq.client.Channel;
 import org.apache.dubbo.config.annotation.Reference;
@@ -25,6 +28,8 @@ public class MessageReceive {
 
     @Reference
     private ShopOrderService shopOrderService;
+    @Reference
+    private ShopProductService shopProductService;
 
     @RabbitListener(queuesToDeclare = @Queue("pay.queue"))
     public void onMessage(String orderId, Message message, Channel channel){
@@ -41,6 +46,12 @@ public class MessageReceive {
                 shopOrder.setId(Long.valueOf(orderId));
                 shopOrder.setStatus(OrderStateEnum.INVALID.getCode());
                 this.shopOrderService.changeOrderStatus(shopOrder);
+                // 还原库存
+                ShopOrderItem shopOrderItem = shopOrderService.selectItem(Long.valueOf(orderId));
+                OrderProductDto orderProductDto=new OrderProductDto();
+                orderProductDto.setCount(0-shopOrderItem.getProductQuantity());
+                orderProductDto.setProductId(shopOrderItem.getProductId());
+                shopProductService.updateStock(orderProductDto);
             }
             System.out.println("签收成功的时间是："+ DateUtils.newDateTime());
         }catch (Exception e){

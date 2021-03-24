@@ -157,9 +157,9 @@ export default {
       this.shopSecKill.productName = this.shopProduct.name
       this.shopSecKill.productPic = this.shopProduct.pic
       this.shopSecKill.productOldPrice = this.shopProduct.price
-      this.shopSecKill.id = this.shopProduct.id
+      this.shopSecKill.productId = this.shopProduct.id
       this.shopSecKill.brandName = this.shopProduct.brandName
-      this.shopSecKill.categoryId = this.shopProduct.categoryId  
+      this.shopSecKill.categoryId = this.shopProduct.categoryId
     },
     // 选择商品
     selectProduct() {

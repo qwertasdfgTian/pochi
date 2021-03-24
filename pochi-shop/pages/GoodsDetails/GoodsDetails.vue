@@ -433,7 +433,9 @@
 				hour: 0,
 				min: 0,
 				sec: 0,
-				shopSeckillPrice: ''
+				shopSeckillPrice: '',
+				// 传来秒杀的id
+				shopSecKillid: 1
 			};
 		},
 		onShow() {
@@ -445,6 +447,7 @@
 			console.log(params)
 			this.type = 0;
 			this.productId = params.id
+			this.shopSecKillid = params.shopSecKillid
 			this.getProductInfo()
 			this.getProductCoupon() 
 			this.getProductPackList()
@@ -461,15 +464,20 @@
 		methods: {
 			// 去秒杀
 			toSecKill() {
-				shopSecKillApi.toSecKill(this.productId).then(res=>{
+				shopSecKillApi.toSecKill(this.shopSecKillid).then(res=>{
 					uni.showToast({
 					  icon:'none',
 					  title:res.msg
 					})
 				})
 			},
+			// 秒杀时间到直接结束
+			end(){
+				this.secKillflag = false
+				this.startflag = false
+			},
 			getSecKill() {
-				shopSecKillApi.getSecKill(this.productId).then(res=>{
+				shopSecKillApi.getSecKill(this.shopSecKillid).then(res=>{
 					if(res.data==null){
 						this.secKillflag = false
 						this.startflag = false
@@ -506,6 +514,8 @@
 								icon: 'none',
 								title:'秒杀已结束'
 							})
+							this.end()
+							return
 						}
 						this.getSecKill()
 						return

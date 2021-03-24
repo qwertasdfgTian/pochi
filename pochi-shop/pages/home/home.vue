@@ -97,7 +97,7 @@
 						</view>
 						<view class="goods-list">
 							<view class="goods-list">
-								<view v-for="item in SecKillProductList" :key="item.id" class="list" @click="toProductInfo(item.id)">
+								<view v-for="item in SecKillProductList" :key="item.id" class="list" @click="toProductInfo(item.productId,item.id)">
 									<view class="pictrue">
 										<image :src="item.productPic"></image>
 									</view>
@@ -122,7 +122,7 @@
 						</view>
 					</view>
 					<view class="goods-list">
-						<view v-for="item in newProductList" :key="item.id" class="list" @click="toProductInfo(item.id)">
+						<view v-for="item in newProductList" :key="item.id" class="list" @click="toProductInfo(item.id,1)">
 							<view class="pictrue">
 								<image :src="item.pic"></image>
 							</view>
@@ -141,7 +141,7 @@
 						</view>
 					</view>
 					<view class="goods-list">
-						<view class="list" v-for="(item,index) in goodsList" @click="toProductInfo(item.id)" :key="index">
+						<view class="list" v-for="(item,index) in goodsList" @click="toProductInfo(item.id,1)" :key="index">
 							<view class="pictrue">
 								<image :src="item.pic" mode="heightFix"></image>
 							</view>
@@ -367,9 +367,9 @@
 				})
 			},
 			// 查看商品详情
-			toProductInfo(id) {
+			toProductInfo(id,shopSecKillid) {
 				uni.navigateTo({
-					url: `/pages/GoodsDetails/GoodsDetails?id=${id}`
+					url: `/pages/GoodsDetails/GoodsDetails?id=${id}`+`&shopSecKillid=`+ shopSecKillid
 				})
 			},
 			// 查询推荐

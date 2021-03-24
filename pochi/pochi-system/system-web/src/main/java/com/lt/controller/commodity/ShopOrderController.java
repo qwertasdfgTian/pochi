@@ -7,7 +7,10 @@ import com.lt.dto.OrderReturnTemplateDto;
 import com.lt.dto.OrderTemplateDto;
 import com.lt.dto.TemplateValue;
 import com.lt.enums.OrderStateEnum;
+import com.lt.enums.StateEnums;
+import com.lt.pojo.ShopOrderItem;
 import com.lt.pojo.ShopOrderPay;
+import com.lt.service.ShopSeckillService;
 import com.lt.service.WxService;
 import com.lt.utils.DateUtils;
 import com.lt.utils.IdWorker;
@@ -50,6 +53,8 @@ public class ShopOrderController extends BaseController {
 
     @Reference
     private ShopOrderService shopOrderService;
+    @Reference
+    private ShopSeckillService shopSeckillService;
     @Autowired
     private IdWorker idWorker;
     @Autowired
@@ -299,17 +304,27 @@ public class ShopOrderController extends BaseController {
      *
      * @return
      */
-    @RequestMapping(value = "/orderRemainingTime/{createTime}", method = RequestMethod.GET)
+    @RequestMapping(value = "/orderRemainingTime/{orderId}", method = RequestMethod.GET)
     @HystrixCommand
-    public Result<?> orderRemainingTime(@PathVariable String createTime) throws ParseException {
+    public Result<?> orderRemainingTime(@PathVariable Long orderId) throws ParseException {
+        ShopOrderVo shopOrderVo = this.shopOrderService.get(orderId);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         // 获取当前时间
         Date now = df.parse(DateUtils.newDateTime());
         // 创建时间
-        Date date=df.parse(createTime);
+        Date date=df.parse(shopOrderVo.getCreateTime());
         long l=now.getTime()-date.getTime();
         System.out.println("一共"+l+"毫秒");
-        Long time=1800000L-l;
+        // 计算剩余时间
+        Long time=null;
+        if(shopOrderVo.getOrderType()== OrderStateEnum.OrderType_ORDINARY.getCode()){
+            time=1800000L-l;
+        }
+        if(shopOrderVo.getOrderType()==OrderStateEnum.OrderType_SecKill.getCode()){
+            ShopOrderItem shopOrderItem=shopOrderService.selectItem(shopOrderVo.getId());
+            String canceltime = this.shopSeckillService.selectCancelTime(shopOrderItem.getProductId());
+            time=Long.parseLong(canceltime)*60*1000-l;
+        }
         if(time>0){
             return new Result<>(time);
         }else{

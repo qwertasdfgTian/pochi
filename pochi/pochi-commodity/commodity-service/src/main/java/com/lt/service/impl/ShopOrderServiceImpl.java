@@ -493,7 +493,16 @@ public class ShopOrderServiceImpl implements ShopOrderService{
         this.shopOrderMapper.insert(order);
         this.shopOrderHistoryMapper.insert(orderHistory);
         this.shopOrderItemMapper.insert(item);
+        this.shopProductMapper.updateBySecKillStock(shopSeckill.getProductId());
         return order;
+    }
+
+    @Override
+    public ShopOrderItem selectItem(Long id) {
+        QueryWrapper qw=new QueryWrapper();
+        qw.eq(ShopOrderItem.COL_ORDER_ID,id);
+        List<ShopOrderItem> list = this.shopOrderItemMapper.selectList(qw);
+        return list.get(0);
     }
 
     /**

@@ -67,4 +67,6 @@ public interface ShopSeckillService {
      */
     void updateStock(Long id);
 
+    // 查询订单取消时间
+    String selectCancelTime(Long productId);
 }

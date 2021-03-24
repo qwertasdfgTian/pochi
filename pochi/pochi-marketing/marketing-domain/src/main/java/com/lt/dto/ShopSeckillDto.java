@@ -28,6 +28,12 @@ public class ShopSeckillDto implements Serializable {
     private String name;
 
     /**
+     * 商品的id
+     */
+    @NotNull(message = "秒杀商品的ID不能是空")
+    private Long productId;
+
+    /**
      * 秒杀商品的图片
      */
     @NotBlank(message = "秒杀商品的图片不能是空")

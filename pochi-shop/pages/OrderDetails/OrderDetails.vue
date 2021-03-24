@@ -324,12 +324,20 @@
 			},
 			// 根据id查询
 			getById() {
+				// orderApi.orderRemainingTime(this.orderId).then(r => {
+				// 	if(res.data){
+				// 		const seconds = r.data / 1000.0;
+				// 		this.CountDown = seconds
+				// 		this.CountDownData();
+				// 	}
+				// })
+				
 				orderApi.get(this.orderId).then(res=>{
 					this.order = res.data
 					if(res.data!=null){
 						const creatTime = res.data.createTime
-						orderApi.orderRemainingTime(creatTime).then(r => {
-							if(res.data){
+						orderApi.orderRemainingTime(this.orderId).then(r => {
+							if(r.data){
 								const seconds = r.data / 1000.0;
 								this.CountDown = seconds
 								this.CountDownData();

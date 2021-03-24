@@ -12,16 +12,16 @@
         <module name="commodity-domain" />
         <module name="system-service" />
         <module name="system-web" />
-        <module name="marketing-domain" />
         <module name="system-api" />
         <module name="commodity-service" />
         <module name="system-domain" />
         <module name="commodity-api" />
+        <module name="marketing-mapper" />
         <module name="marketing-api" />
         <module name="pochi-commons" />
         <module name="commodity" />
         <module name="commodity-mapper" />
-        <module name="marketing-mapper" />
+        <module name="marketing-domain" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

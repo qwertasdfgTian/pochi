@@ -40,7 +40,13 @@ public interface ShopProductMapper extends BaseMapper<ShopProduct> {
     List<ShopProduct> getRankByCategory(Long categoryId);
 
     /**
-     * 扣除库存
+     * 普通订单扣除库存(还原库存)
      */
     void updateStock(OrderProductDto product);
+
+    /**
+     * 秒杀订单扣除库存
+     */
+    void updateBySecKillStock(Long productId);
+
 }

@@ -79,9 +79,9 @@ export default {
 			method: 'delete'
 		})
 	},
-	orderRemainingTime(createTime) {
+	orderRemainingTime(orderId) {
 		return request({
-			url: `/${groupName}/orderRemainingTime/${createTime}`,
+			url: `/${groupName}/orderRemainingTime/${orderId}`,
 			method: 'get'
 		})
 	}

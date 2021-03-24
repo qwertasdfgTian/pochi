@@ -7,6 +7,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="product_pic" jdbcType="VARCHAR" property="productPic" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
     <result column="brand_name" jdbcType="VARCHAR" property="brandName" />
     <result column="category_id" jdbcType="BIGINT" property="categoryId" />

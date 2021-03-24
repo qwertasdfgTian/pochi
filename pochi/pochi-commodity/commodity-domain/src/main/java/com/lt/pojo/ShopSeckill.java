@@ -29,6 +29,12 @@ public class ShopSeckill implements Serializable {
     private String name;
 
     /**
+     * 商品的id
+     */
+    @TableId(value = "product_id", type = IdType.INPUT)
+    private Long productId;
+
+    /**
      * 秒杀商品的图片
      */
     @TableField(value = "product_pic")

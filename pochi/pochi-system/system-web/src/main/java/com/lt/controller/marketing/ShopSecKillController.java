@@ -168,8 +168,8 @@ public class ShopSecKillController extends BaseController {
     public Result<?> toSecKill(@PathVariable Long id) throws ParseException {
         // 1.判断是否活动过期或者是活动还没开始
         ShopSeckill shopSeckill = this.shopSeckillService.get(id);
-        String nowDate = DateUtils.newDate();
-        if(shopSeckill.getBeginTime().compareTo(nowDate)>0||shopSeckill.getEndTime().compareTo(nowDate)<0){
+        String nowDate = DateUtils.newDateTime();
+        if(shopSeckill.getBeginTime().compareTo(nowDate)>0 || shopSeckill.getEndTime().compareTo(nowDate)<0){
             return new Result<>("没在秒杀活动时间内");
         }
         // 2.判断是否到达抢购上限
@@ -183,10 +183,14 @@ public class ShopSecKillController extends BaseController {
         }else{
             return new Result<>("您已到达抢购上限");
         }
-//        try{
-            // 3.扣减库存
+        // 3.查询库存是否是大于0
+        if(shopSeckill.getStock() <= 0){
+            return new Result<>("商品已被抢光了");
+        }
+        try{
+            // 4.扣减库存
             this.shopSeckillService.updateStock(id);
-            // 4.创建订单
+            // 5.创建订单
             ShopOrder order = this.shopOrderService.createSecKillOrder(shopSeckill, loginUser);
             // 发送延时消息
             System.out.println("当前的时间是："+DateUtils.newDateTime());
@@ -198,9 +202,9 @@ public class ShopSecKillController extends BaseController {
                 }
             });
             System.out.println("消息发送成功");
-//        }catch (Exception e){
-//            throw new PochiException("秒杀失败");
-//        }
+        }catch (Exception e){
+            throw new PochiException("秒杀失败");
+        }
         return new Result<>("秒杀成功");
     }
 }
