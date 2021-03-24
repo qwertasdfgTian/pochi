@@ -637,7 +637,9 @@ var _shopSeckill = _interopRequireDefault(__webpack_require__(/*! @/api/shop-sec
       hour: 0,
       min: 0,
       sec: 0,
-      shopSeckillPrice: '' };
+      shopSeckillPrice: '',
+      // 传来秒杀的id
+      shopSecKillid: 1 };
 
   },
   onShow: function onShow() {
@@ -649,6 +651,7 @@ var _shopSeckill = _interopRequireDefault(__webpack_require__(/*! @/api/shop-sec
     console.log(params);
     this.type = 0;
     this.productId = params.id;
+    this.shopSecKillid = params.shopSecKillid;
     this.getProductInfo();
     this.getProductCoupon();
     this.getProductPackList();
@@ -665,15 +668,20 @@ var _shopSeckill = _interopRequireDefault(__webpack_require__(/*! @/api/shop-sec
   methods: {
     // 去秒杀
     toSecKill: function toSecKill() {
-      _shopSeckill.default.toSecKill(this.productId).then(function (res) {
+      _shopSeckill.default.toSecKill(this.shopSecKillid).then(function (res) {
         uni.showToast({
           icon: 'none',
           title: res.msg });
 
       });
     },
+    // 秒杀时间到直接结束
+    end: function end() {
+      this.secKillflag = false;
+      this.startflag = false;
+    },
     getSecKill: function getSecKill() {var _this = this;
-      _shopSeckill.default.getSecKill(this.productId).then(function (res) {
+      _shopSeckill.default.getSecKill(this.shopSecKillid).then(function (res) {
         if (res.data == null) {
           _this.secKillflag = false;
           _this.startflag = false;
@@ -710,6 +718,8 @@ var _shopSeckill = _interopRequireDefault(__webpack_require__(/*! @/api/shop-sec
               icon: 'none',
               title: '秒杀已结束' });
 
+            _this2.end();
+            return;
           }
           _this2.getSecKill();
           return;

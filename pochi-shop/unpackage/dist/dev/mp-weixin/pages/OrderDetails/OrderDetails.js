@@ -481,12 +481,20 @@ var _shopProduct = _interopRequireDefault(__webpack_require__(/*! @/api/shop-pro
     },
     // 根据id查询
     getById: function getById() {var _this5 = this;
+      // orderApi.orderRemainingTime(this.orderId).then(r => {
+      // 	if(res.data){
+      // 		const seconds = r.data / 1000.0;
+      // 		this.CountDown = seconds
+      // 		this.CountDownData();
+      // 	}
+      // })
+
       _shopOrder.default.get(this.orderId).then(function (res) {
         _this5.order = res.data;
         if (res.data != null) {
           var creatTime = res.data.createTime;
-          _shopOrder.default.orderRemainingTime(creatTime).then(function (r) {
-            if (res.data) {
+          _shopOrder.default.orderRemainingTime(_this5.orderId).then(function (r) {
+            if (r.data) {
               var seconds = r.data / 1000.0;
               _this5.CountDown = seconds;
               _this5.CountDownData();

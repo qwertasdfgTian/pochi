@@ -28905,9 +28905,9 @@ var groupName = 'order';var _default =
       method: 'delete' });
 
   },
-  orderRemainingTime: function orderRemainingTime(createTime) {
+  orderRemainingTime: function orderRemainingTime(orderId) {
     return (0, _request.default)({
-      url: "/".concat(groupName, "/orderRemainingTime/").concat(createTime),
+      url: "/".concat(groupName, "/orderRemainingTime/").concat(orderId),
       method: 'get' });
 
   } };exports.default = _default;

@@ -280,7 +280,7 @@ var tkiQrcode = function tkiQrcode() {Promise.all(/*! require.ensure | component
       src: '' // 二维码生成后的图片地址或base64
     };}, onLoad: function onLoad(param) {// 取出订单号和金额
     this.orderId = param.id;this.payAmount = param.amount; // 查询是否存在该订单
-    this.get();this.CountDownData();}, methods: { get: function get() {var _this = this;_shopOrder.default.get(this.orderId).then(function (r) {if (r.data != null) {var creatTime = r.data.createTime;_shopOrder.default.orderRemainingTime(creatTime).then(function (res) {if (res.data) {var seconds = res.data / 1000.0;_this.CountDown = seconds;} else {_this.CountDown = 1;}});} else {_this.CountDown = 1800;}});}, show: function show() {
+    this.get();this.CountDownData();}, methods: { get: function get() {var _this = this;_shopOrder.default.get(this.orderId).then(function (r) {if (r.data != null) {var creatTime = r.data.createTime;_shopOrder.default.orderRemainingTime(_this.orderId).then(function (res) {if (res.data) {var seconds = res.data / 1000.0;_this.CountDown = seconds;} else {_this.CountDown = 1;}});} else {_this.CountDown = 1800;}});}, show: function show() {
       this.$refs.popupRef.show(); // 或者 boolShow = rue
     },
     close: function close() {

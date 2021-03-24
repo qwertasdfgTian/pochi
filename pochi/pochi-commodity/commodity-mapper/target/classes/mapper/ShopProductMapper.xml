@@ -165,4 +165,9 @@
     <update id="updateStock">
         update shop_product set stock=stock-#{count} where id=#{productId} and stock>0
     </update>
+
+    <update id="updateBySecKillStock">
+        update shop_product set stock=stock-1 where id=#{productId} and stock>0
+    </update>
+
 </mapper>

@@ -23,24 +23,19 @@
         </el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="6">
+        <el-col :span="8">
           <el-form-item label="商品价格">
             ￥{{ shopSecKill.productPrice }}
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
           <el-form-item label="商品库存">
             {{ shopSecKill.stock }}
           </el-form-item>
         </el-col>
-        <el-col :span="6">
-          <el-form-item label="取消时间">
+        <el-col :span="8">
+          <el-form-item label="逾期时间">
             {{ shopSecKill.cancelTime }}分钟
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="限购数量">
-            {{ shopSecKill.quota }}
           </el-form-item>
         </el-col>
       </el-row>

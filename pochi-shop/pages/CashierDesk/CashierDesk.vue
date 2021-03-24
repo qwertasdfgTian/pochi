@@ -96,7 +96,7 @@
 				orderApi.get(this.orderId).then(r => {
 					if(r.data!=null){
 						const creatTime = r.data.createTime
-						orderApi.orderRemainingTime(creatTime).then(res => {
+						orderApi.orderRemainingTime(this.orderId).then(res => {
 							if(res.data){
 								const seconds = res.data / 1000.0;
 								this.CountDown = seconds
