@@ -1,5 +1,9 @@
 package com.lt;
 
+import com.lt.enums.StateEnums;
+import com.lt.mapper.ShopUserMapper;
+import com.lt.pojo.ShopUser;
+import com.lt.utils.IdWorker;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Message;
@@ -9,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,6 +22,7 @@ class RabbitmqSpringbootDealyApplicationTests {
 
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
+
 	@Test
 	void contextLoads() {
 	}

@@ -71,6 +71,8 @@ dubbo:
     address: zookeeper://39.101.131.194:2181
   consumer:
     check: false
+  protocol:
+    threads: 100000
 # 微信配置
 wechat:
   appId: wx4b5bbd6a89d564c7

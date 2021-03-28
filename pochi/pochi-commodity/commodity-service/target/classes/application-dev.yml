@@ -5,7 +5,7 @@ spring:
   #数据源的配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://101.200.224.175:3306/pochi?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://101.200.224.175:3306/Pochi?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     username: root
     password: 123456
     #注入数据源的类型   默认的为HikariDataSource
@@ -53,6 +53,10 @@ dubbo:
     address: zookeeper://101.200.224.175:2181
   consumer:
     check: false
+    threads: 100000
   protocol:
     name: dubbo
     port: -1
+    threads: 100000
+  provider:
+    threads: 100000

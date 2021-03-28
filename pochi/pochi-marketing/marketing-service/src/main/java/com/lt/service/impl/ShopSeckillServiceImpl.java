@@ -27,7 +27,7 @@ import org.apache.dubbo.config.annotation.Service;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Service(methods = {@Method(name = "save", retries = 0)})
+@Service(methods = {@Method(name = "save", retries = 0)},timeout = 50000)
 public class ShopSeckillServiceImpl implements ShopSeckillService{
 
     @Autowired
@@ -36,7 +36,7 @@ public class ShopSeckillServiceImpl implements ShopSeckillService{
     private IdWorker idWorker;
 
     @Override
-    public void save(ShopSeckillDto secKillDto, LoginUser loginUser) {
+    public ShopSeckill save(ShopSeckillDto secKillDto, LoginUser loginUser) {
         // 复制属性
         ShopSeckill shopSeckill=new ShopSeckill();
         BeanUtils.copyProperties(secKillDto, shopSeckill);
@@ -57,6 +57,7 @@ public class ShopSeckillServiceImpl implements ShopSeckillService{
             shopSeckill.setStatus(StateEnums.SECKILL_NOTSTART.getCode());
         }
         this.shopseckillMapper.insert(shopSeckill);
+        return shopSeckill;
     }
 
     @Override
@@ -162,8 +163,27 @@ public class ShopSeckillServiceImpl implements ShopSeckillService{
     }
 
     @Override
+    public void updateStockAdd(Long productId) {
+        ShopSeckill shopSeckill=this.shopseckillMapper.selectById(productId);
+        shopSeckill.setStock(shopSeckill.getStock()+1);
+        shopSeckill.setUpdateTime(DateUtils.newDateTime());
+        this.shopseckillMapper.updateById(shopSeckill);
+    }
+
+    @Override
     public String selectCancelTime(Long productId) {
-        return this.shopseckillMapper.selectById(productId).getCancelTime();
+        QueryWrapper qw=new QueryWrapper();
+        qw.eq(ShopSeckill.COL_PRODUCT_ID,productId);
+        qw.eq(ShopSeckill.COL_STATUS,StateEnums.SECKILL_START);
+        return this.shopseckillMapper.selectOne(qw).getCancelTime();
+    }
+
+    @Override
+    public List<ShopSeckill> getByProductId(Long productId) {
+        QueryWrapper qw=new QueryWrapper();
+        qw.eq(ShopSeckill.COL_PRODUCT_ID,productId);
+        qw.ne(ShopSeckill.COL_STATUS,StateEnums.SECKILL_OVER);
+        return this.shopseckillMapper.selectList(qw);
     }
 
 }

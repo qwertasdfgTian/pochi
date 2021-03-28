@@ -29,7 +29,7 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Service(methods = {@Method(name = "createOrder", retries = 0)})
+@Service(methods = {@Method(name = "createOrder", retries = 0)},timeout = 50000)
 @Slf4j
 public class ShopOrderServiceImpl implements ShopOrderService{
 
@@ -445,28 +445,37 @@ public class ShopOrderServiceImpl implements ShopOrderService{
     }
 
     @Override
-    public ShopOrder createSecKillOrder(ShopSeckill shopSeckill, LoginUser loginUser) {
+    public ShopOrder createSecKillOrder(ShopSeckill shopSeckill, Long userId) {
         // 查询地址
         QueryWrapper qw=new QueryWrapper();
-        qw.eq(ShopUserAddress.COL_USER_ID,loginUser.getId());
+        qw.eq(ShopUserAddress.COL_USER_ID,userId);
         qw.eq(ShopUserAddress.COL_DEFAULT_STATUS,StateEnums.ADDRESS_DEFAULT.getCode());
         ShopUserAddress address = this.shopUserAddressMapper.selectOne(qw);
         // 4. 存入订单表、订单项表、订单历史表
         ShopOrder order = new ShopOrder();
         order.setId(idWorker.nextId());
-        order.setCreateBy(loginUser.getUsername());
+        order.setCreateBy(userId.toString());
         order.setTotalAmount(shopSeckill.getProductOldPrice());
         order.setPayAmount(shopSeckill.getProductPrice());
         order.setCouponAmount(BigDecimal.ZERO);
         order.setDeliveryCompany("菜鸟快递");
         order.setDeliverySn(idWorker.nextId() + "");
-        order.setReceiverName(address.getName());
-        order.setReceiverPhone(address.getPhoneNumber());
         order.setReceiverPostCode("061200");
-        order.setReceiverProvince(address.getProvince());
-        order.setReceiverCity(address.getCity());
-        order.setReceiverRegion(address.getRegion());
-        order.setReceiverDetailAddress(address.getDetailAddress());
+        if(address!=null){
+            order.setReceiverName(address.getName());
+            order.setReceiverPhone(address.getPhoneNumber());
+            order.setReceiverProvince(address.getProvince());
+            order.setReceiverCity(address.getCity());
+            order.setReceiverRegion(address.getRegion());
+            order.setReceiverDetailAddress(address.getDetailAddress());
+        }else{
+            order.setReceiverName("暂无收货人姓名");
+            order.setReceiverPhone("暂无收货人电话");
+            order.setReceiverProvince("暂无收货人省份/直辖市");
+            order.setReceiverCity("暂无收货人城市");
+            order.setReceiverRegion("暂无收货人区");
+            order.setReceiverDetailAddress("暂无详细地址");
+        }
         order.setCreateTime(DateUtils.newDateTime());
         order.setOrderType(OrderStateEnum.OrderType_SecKill.getCode());
         order.setFreightAmount(BigDecimal.ZERO);

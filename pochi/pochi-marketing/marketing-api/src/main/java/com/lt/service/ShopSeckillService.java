@@ -14,7 +14,7 @@ public interface ShopSeckillService {
      * 添加
      * @param seckillDto
      */
-    void save(ShopSeckillDto seckillDto, LoginUser loginUser);
+    ShopSeckill save(ShopSeckillDto seckillDto, LoginUser loginUser);
 
     /**
      * 删除
@@ -67,6 +67,21 @@ public interface ShopSeckillService {
      */
     void updateStock(Long id);
 
-    // 查询订单取消时间
+    /**
+     * 还原库存
+     * @return
+     */
+    void updateStockAdd(Long productId);
+
+    /**
+     * 查询订单取消时间
+     * @return
+     */
     String selectCancelTime(Long productId);
+
+    /**
+     * 根据商品Id查询
+     * @return
+     */
+    List<ShopSeckill> getByProductId(Long productId);
 }

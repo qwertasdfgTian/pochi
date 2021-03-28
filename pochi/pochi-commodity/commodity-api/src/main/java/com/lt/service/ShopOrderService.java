@@ -118,7 +118,7 @@ public interface ShopOrderService {
      * 创建秒杀订单
      * @Param: orderId
      */
-    ShopOrder createSecKillOrder(ShopSeckill shopSeckill, LoginUser loginUser);
+    ShopOrder createSecKillOrder(ShopSeckill shopSeckill, Long userId);
 
     // 查询详情
     ShopOrderItem selectItem(Long id);
