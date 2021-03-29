@@ -56,9 +56,9 @@ public class DealyMessageReceive {
                 orderProductDto.setProductId(shopOrderItem.getProductId());
                 shopProductService.updateStock(orderProductDto);
                 // 如果是秒杀订单还原秒杀库存
-//                if(byId.getOrderType()==OrderStateEnum.OrderType_SecKill.getCode()){
-//                    shopSeckillService.updateStockAdd(shopOrderItem.getProductId());
-//                }
+                if(byId.getOrderType()==OrderStateEnum.OrderType_SecKill.getCode()){
+                    shopSeckillService.updateStockAdd(shopOrderItem.getProductId());
+                }
             }
             System.out.println("签收成功的时间是：" + DateUtils.newDateTime());
         } catch (Exception e) {

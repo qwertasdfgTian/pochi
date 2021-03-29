@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.lt.dto.GoShopSeckillDto;
 import com.lt.dto.OrderProductDto;
 import com.lt.enums.OrderStateEnum;
+import com.lt.exception.PochiException;
 import com.lt.pojo.ShopOrder;
 import com.lt.pojo.ShopOrderItem;
 import com.lt.pojo.ShopSeckill;
@@ -52,7 +53,9 @@ public class OrderMessageReceive {
             // 拿到消息内容创建订单
             GoShopSeckillDto shopSeckill = JSON.parseObject(goShopSeckillDto, GoShopSeckillDto.class);
             List<ShopSeckill> list = this.shopSeckillService.getByProductId(shopSeckill.getProductId());
-
+            // 扣减秒杀库存
+            this.shopSeckillService.updateStock(list.get(0).getId());
+            // 开始创建订单
             ShopOrder order = this.shopOrderService.createSecKillOrder(list.get(0), shopSeckill.getUserId());
             // 发送延时消息
             System.out.println("当前的时间是："+DateUtils.newDateTime());
@@ -67,7 +70,7 @@ public class OrderMessageReceive {
 
             System.out.println("签收成功的时间是："+ DateUtils.newDateTime());
         }catch (Exception e){
-            e.printStackTrace();
+            throw new PochiException("您的秒杀订单出现异常，抢购失败！");
         }
     }
 

@@ -39,7 +39,7 @@ public class RequestAspect {
     /**
      * 不记录日志的接口
      */
-    private static final String[] EXCLUDE_URLS = {"/sysLog/", "/upload/"};
+    private static final String[] EXCLUDE_URLS = {"/sysLog/", "/upload/", "/shopSecKill/toSecKill"};
 
     /**
      * 判断url是否需要放行

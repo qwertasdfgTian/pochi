@@ -222,12 +222,16 @@ public class ShopSecKillController extends BaseController {
 
     /**
      * 去秒杀（优化1）
+     * 因为接口效率的瓶颈在于数据库的操作。所以尽量减少对数据库的操作，优化方式：
+     * 1.秒杀商品的库存放在redis里面，依次递减库存，并且redis的命令是原子性的，可以解决超卖问题
+     * 2.所有的操作交给redis，redis内存型数据库效率大于直接操作mysql
+     * 3.MQ异步创建订单，订单不在秒杀成功时候创建，只是让MQ发送个消息给创建订单接口
      * @return
      */
     @RequestMapping(value = "/toSecKill", method = RequestMethod.POST)
     public Result<?> toSecKill(@RequestBody @Validated GoShopSeckillDto goShopSeckillDto) throws ParseException {
         // 1.判断是否活动过期或者是活动还没开始
-        if( this.stringRedisTemplate.opsForValue().get(goShopSeckillDto.getProductId())==null) {
+        if( this.stringRedisTemplate.opsForValue().get(goShopSeckillDto.getProductId().toString())==null) {
             return new Result<>("没在秒杀活动时间内");
         }
         // 2.判断是否到达抢购上限
@@ -236,18 +240,27 @@ public class ShopSecKillController extends BaseController {
         }else{
             return new Result<>("您已到达抢购上限");
         }
-        // 3.查询库存是否是大于0
-        if(Integer.valueOf(this.stringRedisTemplate.opsForValue().get(goShopSeckillDto.getProductId().toString())) <= 0){
+        // 3.扣减库存并返回库存是否是大于0
+        if(this.stringRedisTemplate.opsForValue().decrement(goShopSeckillDto.getProductId().toString()) < 0){
+            this.stringRedisTemplate.opsForValue().increment(goShopSeckillDto.getProductId().toString());
             return new Result<>("商品已被抢光了");
         }
         try{
-            // 4.扣减库存
-            this.stringRedisTemplate.opsForValue().decrement(goShopSeckillDto.getProductId().toString());
-            // 5.MQ异步创建订单
-            this.rabbitTemplate.convertAndSend("directs","order", JSON.toJSONString(goShopSeckillDto));
+            // 4.MQ异步创建订单
+            this.rabbitTemplate.convertAndSend("direct","order", JSON.toJSONString(goShopSeckillDto));
         }catch (Exception e){
+            // 消息发送出现异常还原库存
+            this.stringRedisTemplate.opsForValue().increment(goShopSeckillDto.getProductId().toString());
             throw new PochiException("秒杀失败");
         }
         return new Result<>("秒杀成功");
     }
+
+    /**
+     * 去秒杀（优化2）
+     * 虽然秒杀的接口得到了提升，但是想想还是有地方可以加优化的：
+     * 1.当秒杀商品卖完的时候，还是会有其他的线程去请求redis判断是否是卖完，虽然redis很快，到那时不断请求redis还是会有网络上的io消耗，
+     * 所以可以加二级缓存，在本机加一个jvm缓存记录商品卖完的标志。
+     * 2.我们的商品其实只有100个，我们没有必要让所有的请求全部都进来访问接口，可以采取令牌桶算法来限流。
+    */
 }

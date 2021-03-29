@@ -25,11 +25,11 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, `name`, product_pic, product_name, begin_time, end_time, product_price, stock, 
+    id, `name`, product_pic, product_name, begin_time, end_time, product_price, stock,
     cancel_time, `status`, quota, create_time, update_time, deleted, create_by, update_by
   </sql>
 
   <update id="updateStock">
-        update shop_product set stock=stock-1 where id=#{id} and stock>0
+        update shop_seckill set stock=stock-1 where id=#{id} and stock>0
   </update>
 </mapper>

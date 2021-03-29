@@ -155,11 +155,11 @@ public class ShopSeckillServiceImpl implements ShopSeckillService{
 
     @Override
     public void updateStock(Long id) {
-        ShopSeckill shopSeckill=this.shopseckillMapper.selectById(id);
-        shopSeckill.setStock(shopSeckill.getStock()-1);
-        shopSeckill.setUpdateTime(DateUtils.newDateTime());
-        this.shopseckillMapper.updateById(shopSeckill);
-        //this.shopseckillMapper.updateStock(id);
+//        ShopSeckill shopSeckill=this.shopseckillMapper.selectById(id);
+//        shopSeckill.setStock(shopSeckill.getStock()-1);
+//        shopSeckill.setUpdateTime(DateUtils.newDateTime());
+//        this.shopseckillMapper.updateById(shopSeckill);
+        this.shopseckillMapper.updateStock(id);
     }
 
     @Override
