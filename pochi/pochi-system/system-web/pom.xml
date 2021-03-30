@@ -140,6 +140,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!--引入令牌桶-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>28.2-jre</version>
+        </dependency>
+
         <dependency>
             <groupId>com.lt</groupId>
             <artifactId>commodity-api</artifactId>

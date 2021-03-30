@@ -445,6 +445,7 @@ public class ShopOrderServiceImpl implements ShopOrderService{
     }
 
     @Override
+    @Transactional
     public ShopOrder createSecKillOrder(ShopSeckill shopSeckill, Long userId) {
         // 查询地址
         QueryWrapper qw=new QueryWrapper();

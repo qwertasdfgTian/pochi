@@ -1,6 +1,7 @@
 package com.lt.controller.marketing;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.util.concurrent.RateLimiter;
 import com.lt.constant.CoreConstant;
 import com.lt.controller.BaseController;
 import com.lt.dto.GoShopSeckillDto;
@@ -31,6 +32,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -51,8 +53,20 @@ public class ShopSecKillController extends BaseController {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    // 引入令牌桶算法的对象
+    private RateLimiter rateLimiter = RateLimiter.create(20);
+
+    // jvm缓存标志
+    private static ConcurrentHashMap<Long, Boolean> productSoldOutMap = new ConcurrentHashMap<>();
+
+    // 获取jvm缓存标志
+    private static ConcurrentHashMap<Long, Boolean> getProductSoldOutMap() {
+        return productSoldOutMap;
+    }
+
     /**
      * 添加
+     *
      * @param seckillDto
      * @return
      */
@@ -60,9 +74,12 @@ public class ShopSecKillController extends BaseController {
     //@HystrixCommand
     public Result<?> save(@RequestBody @Validated ShopSeckillDto seckillDto) throws ParseException {
         List<ShopSeckill> list = this.shopSeckillService.getByProductId(seckillDto.getProductId());
-        if(list.size()>=1){
+        if (list.size() >= 1) {
             // 说明存在已经参加活动的商品，不能在重复设置活动
             return new Result<>("添加失败，改商品已经有参加的活动");
+        }
+        if (productSoldOutMap.get(seckillDto.getProductId()) != null) {
+            productSoldOutMap.remove(seckillDto.getProductId());
         }
         LoginUser loginUser = ShiroUtils.getLoginUser();
         ShopSeckill shopSeckill = this.shopSeckillService.save(seckillDto, loginUser);
@@ -70,13 +87,14 @@ public class ShopSecKillController extends BaseController {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long nowtime = df.parse(DateUtils.newDateTime()).getTime();
         long endtime = df.parse(seckillDto.getEndTime()).getTime();
-        Long time=endtime-nowtime;
-        this.stringRedisTemplate.opsForValue().set(seckillDto.getProductId().toString(),seckillDto.getStock().toString(),time, TimeUnit.MILLISECONDS);
+        Long time = endtime - nowtime;
+        this.stringRedisTemplate.opsForValue().set(seckillDto.getProductId().toString(), seckillDto.getStock().toString(), time, TimeUnit.MILLISECONDS);
         return new Result<>("添加成功");
     }
 
     /**
      * 根据id删除
+     *
      * @param id
      * @return
      */
@@ -84,7 +102,7 @@ public class ShopSecKillController extends BaseController {
     @HystrixCommand
     public Result<?> delete(@PathVariable Long id) {
         ShopSeckill shopSeckill = this.shopSeckillService.get(id);
-        if(shopSeckill.getStatus()== StateEnums.SECKILL_START.getCode()){
+        if (shopSeckill.getStatus() == StateEnums.SECKILL_START.getCode()) {
             throw new PochiException("活动已经开始无法删除");
         }
         this.shopSeckillService.delete(id);
@@ -93,6 +111,7 @@ public class ShopSecKillController extends BaseController {
 
     /**
      * 活动结束
+     *
      * @param id
      * @return
      */
@@ -100,7 +119,7 @@ public class ShopSecKillController extends BaseController {
     @HystrixCommand
     public Result<?> down(@PathVariable Long id) {
         ShopSeckill shopSeckill = this.shopSeckillService.get(id);
-        if(shopSeckill.getStatus()== StateEnums.SECKILL_START.getCode()){
+        if (shopSeckill.getStatus() == StateEnums.SECKILL_START.getCode()) {
             throw new PochiException("活动已经开始无法结束");
         }
         this.shopSeckillService.down(id);
@@ -109,6 +128,7 @@ public class ShopSecKillController extends BaseController {
 
     /**
      * 分页查询
+     *
      * @param page
      * @return
      */
@@ -133,6 +153,7 @@ public class ShopSecKillController extends BaseController {
 
     /**
      * 查询所有
+     *
      * @return
      */
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
@@ -146,18 +167,18 @@ public class ShopSecKillController extends BaseController {
         Date date = null;
         // 创建时间
         for (ShopSeckill shopSeckill : all) {
-            if (DateUtils.newDateTime().compareTo(shopSeckill.getBeginTime()) <= 0){
-                date=df.parse(shopSeckill.getBeginTime());
+            if (DateUtils.newDateTime().compareTo(shopSeckill.getBeginTime()) <= 0) {
+                date = df.parse(shopSeckill.getBeginTime());
                 break;
             }
         }
-        if(date==null){
+        if (date == null) {
             return new Result<>(allSecKillVo);
-        }else{
+        } else {
             // 获取开始时间
             Date now = df.parse(DateUtils.newDateTime());
-            long l=date.getTime()-now.getTime();
-            System.out.println("一共"+l+"毫秒");
+            long l = date.getTime() - now.getTime();
+            System.out.println("一共" + l + "毫秒");
             allSecKillVo.setNextSecKillTime(l);
         }
         return new Result<>(allSecKillVo);
@@ -165,6 +186,7 @@ public class ShopSecKillController extends BaseController {
 
     /**
      * 查询是否是秒杀商品
+     *
      * @return
      */
     @RequestMapping(value = "/getSecKill/{id}", method = RequestMethod.GET)
@@ -173,10 +195,10 @@ public class ShopSecKillController extends BaseController {
         return new Result<>(secKill);
     }
 
-//    /**
-//     * 去秒杀
-//     * @return
-//     */
+    /**
+     * 去秒杀
+     * @return
+     */
 //    @RequestMapping(value = "/toSecKill", method = RequestMethod.POST)
 //    public Result<?> toSecKill(@RequestBody GoShopSeckillDto goShopSeckillDto) throws ParseException {
 //        // 1.判断是否活动过期或者是活动还没开始
@@ -228,33 +250,33 @@ public class ShopSecKillController extends BaseController {
      * 3.MQ异步创建订单，订单不在秒杀成功时候创建，只是让MQ发送个消息给创建订单接口
      * @return
      */
-    @RequestMapping(value = "/toSecKill", method = RequestMethod.POST)
-    public Result<?> toSecKill(@RequestBody @Validated GoShopSeckillDto goShopSeckillDto) throws ParseException {
-        // 1.判断是否活动过期或者是活动还没开始
-        if( this.stringRedisTemplate.opsForValue().get(goShopSeckillDto.getProductId().toString())==null) {
-            return new Result<>("没在秒杀活动时间内");
-        }
-        // 2.判断是否到达抢购上限
-        if( this.stringRedisTemplate.opsForValue().get(goShopSeckillDto.getProductId()+"_"+goShopSeckillDto.getUserId())==null){
-            this.stringRedisTemplate.opsForValue().set(goShopSeckillDto.getProductId()+"_"+goShopSeckillDto.getUserId().toString(),"exist",30*60*1000, TimeUnit.MILLISECONDS);
-        }else{
-            return new Result<>("您已到达抢购上限");
-        }
-        // 3.扣减库存并返回库存是否是大于0
-        if(this.stringRedisTemplate.opsForValue().decrement(goShopSeckillDto.getProductId().toString()) < 0){
-            this.stringRedisTemplate.opsForValue().increment(goShopSeckillDto.getProductId().toString());
-            return new Result<>("商品已被抢光了");
-        }
-        try{
-            // 4.MQ异步创建订单
-            this.rabbitTemplate.convertAndSend("direct","order", JSON.toJSONString(goShopSeckillDto));
-        }catch (Exception e){
-            // 消息发送出现异常还原库存
-            this.stringRedisTemplate.opsForValue().increment(goShopSeckillDto.getProductId().toString());
-            throw new PochiException("秒杀失败");
-        }
-        return new Result<>("秒杀成功");
-    }
+//    @RequestMapping(value = "/toSecKill", method = RequestMethod.POST)
+//    public Result<?> toSecKill(@RequestBody @Validated GoShopSeckillDto goShopSeckillDto) throws ParseException {
+//        // 1.判断是否活动过期或者是活动还没开始
+//        if( this.stringRedisTemplate.opsForValue().get(goShopSeckillDto.getProductId().toString())==null) {
+//            return new Result<>("没在秒杀活动时间内");
+//        }
+//        // 2.判断是否到达抢购上限
+//        if( this.stringRedisTemplate.opsForValue().get(goShopSeckillDto.getProductId()+"_"+goShopSeckillDto.getUserId())==null){
+//            this.stringRedisTemplate.opsForValue().set(goShopSeckillDto.getProductId()+"_"+goShopSeckillDto.getUserId().toString(),"exist",30*60*1000, TimeUnit.MILLISECONDS);
+//        }else{
+//            return new Result<>("您已到达抢购上限");
+//        }
+//        // 3.扣减库存并返回库存是否是大于0
+//        if(this.stringRedisTemplate.opsForValue().decrement(goShopSeckillDto.getProductId().toString()) < 0){
+//            this.stringRedisTemplate.opsForValue().increment(goShopSeckillDto.getProductId().toString());
+//            return new Result<>("商品已被抢光了");
+//        }
+//        try{
+//            // 4.MQ异步创建订单
+//            this.rabbitTemplate.convertAndSend("direct","order", JSON.toJSONString(goShopSeckillDto));
+//        }catch (Exception e){
+//            // 消息发送出现异常还原库存
+//            this.stringRedisTemplate.opsForValue().increment(goShopSeckillDto.getProductId().toString());
+//            throw new PochiException("秒杀失败");
+//        }
+//        return new Result<>("秒杀成功");
+//    }
 
     /**
      * 去秒杀（优化2）
@@ -262,5 +284,47 @@ public class ShopSecKillController extends BaseController {
      * 1.当秒杀商品卖完的时候，还是会有其他的线程去请求redis判断是否是卖完，虽然redis很快，到那时不断请求redis还是会有网络上的io消耗，
      * 所以可以加二级缓存，在本机加一个jvm缓存记录商品卖完的标志。
      * 2.我们的商品其实只有100个，我们没有必要让所有的请求全部都进来访问接口，可以采取令牌桶算法来限流。
-    */
+     */
+    @RequestMapping(value = "/toSecKill", method = RequestMethod.POST)
+    public Result<?> toSecKill(@RequestBody @Validated GoShopSeckillDto goShopSeckillDto) throws ParseException {
+
+        // 1.使用令牌桶限流
+        if (!rateLimiter.tryAcquire(2, TimeUnit.SECONDS)) {
+            System.out.println("==========================================");
+            return new Result<>("活动太过火爆,请重试!");
+        }
+        // 2.如果已经卖完不在请求redis，请求设置的第二级jvm缓存
+        if (productSoldOutMap.get(goShopSeckillDto.getProductId()) != null) {
+            return new Result<>("商品已被抢光了!");
+        }
+        // 3.判断是否活动过期或者是活动还没开始
+        if (this.stringRedisTemplate.opsForValue().get(goShopSeckillDto.getProductId().toString()) == null) {
+            return new Result<>("没在秒杀活动时间内!");
+        }
+        // 4.判断是否到达抢购上限
+        if (this.stringRedisTemplate.opsForValue().get(goShopSeckillDto.getProductId() + "_" + goShopSeckillDto.getUserId()) == null) {
+            this.stringRedisTemplate.opsForValue().set(goShopSeckillDto.getProductId() + "_" + goShopSeckillDto.getUserId().toString(), "exist", 30 * 60 * 1000, TimeUnit.MILLISECONDS);
+        } else {
+            return new Result<>("您已到达抢购上限!");
+        }
+        // 5.扣减库存并返回库存是否是大于0
+        if (this.stringRedisTemplate.opsForValue().decrement(goShopSeckillDto.getProductId().toString()) < 0) {
+            // 设置第二级缓存标志
+            productSoldOutMap.put(goShopSeckillDto.getProductId(), true);
+            this.stringRedisTemplate.opsForValue().increment(goShopSeckillDto.getProductId().toString());
+            return new Result<>("商品已被抢光了!");
+        }
+        try {
+            // 6.MQ异步创建订单
+            this.rabbitTemplate.convertAndSend("direct", "order", JSON.toJSONString(goShopSeckillDto));
+        } catch (Exception e) {
+            // 消息发送出现异常还原库存
+            this.stringRedisTemplate.opsForValue().increment(goShopSeckillDto.getProductId().toString());
+            if (productSoldOutMap.get(goShopSeckillDto.getProductId()) != null) {
+                productSoldOutMap.remove(goShopSeckillDto.getProductId());
+            }
+            throw new PochiException("秒杀失败!");
+        }
+        return new Result<>("秒杀成功!");
+    }
 }
