@@ -18,6 +18,11 @@ import com.lt.utils.ShiroUtils;
 import com.lt.vo.*;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.apache.dubbo.config.annotation.Reference;
+import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.ZooDefs;
+import org.apache.zookeeper.ZooKeeper;
+import org.apache.zookeeper.data.Stat;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessagePostProcessor;
@@ -52,6 +57,8 @@ public class ShopSecKillController extends BaseController {
     private ShopOrderService shopOrderService;
     @Autowired
     private RabbitTemplate rabbitTemplate;
+    @Autowired
+    private ZooKeeper zooKeeper;
 
     // 引入令牌桶算法的对象
     private RateLimiter rateLimiter = RateLimiter.create(20);
@@ -60,7 +67,7 @@ public class ShopSecKillController extends BaseController {
     private static ConcurrentHashMap<Long, Boolean> productSoldOutMap = new ConcurrentHashMap<>();
 
     // 获取jvm缓存标志
-    private static ConcurrentHashMap<Long, Boolean> getProductSoldOutMap() {
+    public static ConcurrentHashMap<Long, Boolean> getProductSoldOutMap() {
         return productSoldOutMap;
     }
 
@@ -285,16 +292,64 @@ public class ShopSecKillController extends BaseController {
      * 所以可以加二级缓存，在本机加一个jvm缓存记录商品卖完的标志。
      * 2.我们的商品其实只有100个，我们没有必要让所有的请求全部都进来访问接口，可以采取令牌桶算法来限流。
      */
+//    @RequestMapping(value = "/toSecKill", method = RequestMethod.POST)
+//    public Result<?> toSecKill(@RequestBody @Validated GoShopSeckillDto goShopSeckillDto) throws ParseException {
+//
+//        // 1.使用令牌桶限流
+//        if (!rateLimiter.tryAcquire(2, TimeUnit.SECONDS)) {
+//            return new Result<>("活动太过火爆,请重试!");
+//        }
+//        // 2.如果已经卖完不在请求redis，请求设置的第二级jvm缓存
+//        if (getProductSoldOutMap().get(goShopSeckillDto.getProductId()) != null) {
+//            return new Result<>("商品已被抢光了!");
+//        }
+//        // 3.判断是否活动过期或者是活动还没开始
+//        if (this.stringRedisTemplate.opsForValue().get(goShopSeckillDto.getProductId().toString()) == null) {
+//            return new Result<>("没在秒杀活动时间内!");
+//        }
+//        // 4.判断是否到达抢购上限
+//        if (this.stringRedisTemplate.opsForValue().get(goShopSeckillDto.getProductId() + "_" + goShopSeckillDto.getUserId()) == null) {
+//            this.stringRedisTemplate.opsForValue().set(goShopSeckillDto.getProductId() + "_" + goShopSeckillDto.getUserId().toString(), "exist", 30 * 60 * 1000, TimeUnit.MILLISECONDS);
+//        } else {
+//            return new Result<>("您已到达抢购上限!");
+//        }
+//        // 5.扣减库存并返回库存是否是大于0
+//        if (this.stringRedisTemplate.opsForValue().decrement(goShopSeckillDto.getProductId().toString()) < 0) {
+//            // 设置第二级缓存标志
+//            productSoldOutMap.put(goShopSeckillDto.getProductId(), true);
+//            this.stringRedisTemplate.opsForValue().increment(goShopSeckillDto.getProductId().toString());
+//            return new Result<>("商品已被抢光了!");
+//        }
+//        try {
+//            // 6.MQ异步创建订单
+//            this.rabbitTemplate.convertAndSend("direct", "order", JSON.toJSONString(goShopSeckillDto));
+//        } catch (Exception e) {
+//            // 消息发送出现异常还原库存
+//            this.stringRedisTemplate.opsForValue().increment(goShopSeckillDto.getProductId().toString());
+//            if (productSoldOutMap.get(goShopSeckillDto.getProductId()) != null) {
+//                productSoldOutMap.remove(goShopSeckillDto.getProductId());
+//            }
+//            throw new PochiException("秒杀失败!");
+//        }
+//        return new Result<>("秒杀成功!");
+//    }
+
+    /**
+     * 去秒杀（优化3）
+     * 虽然秒杀的接口得到了提升，但是想想还是有地方可以加优化的：
+     * 1.启动多个服务用nginx来做负载均衡，这样由nginx将所有的请求发放在不同的服务上，减轻了单个服务器的压力，但是有一点，jvm缓存得不到同步，这时候引进zookeeper监听节点的变化
+     * 2.搭建mysql集群，使mysql读写分离，对一些数据量会比较大的数据表，如商品表，订单表等进行分库分表，达到高可用和提升处理高并发的能力
+     * 3.搭建redis集群，多个redis进行写入操作，也同样的达到高可用和提升处理高并发的能力
+     */
     @RequestMapping(value = "/toSecKill", method = RequestMethod.POST)
-    public Result<?> toSecKill(@RequestBody @Validated GoShopSeckillDto goShopSeckillDto) throws ParseException {
+    public Result<?> toSecKill(@RequestBody @Validated GoShopSeckillDto goShopSeckillDto) throws KeeperException, InterruptedException {
 
         // 1.使用令牌桶限流
         if (!rateLimiter.tryAcquire(2, TimeUnit.SECONDS)) {
-            System.out.println("==========================================");
             return new Result<>("活动太过火爆,请重试!");
         }
         // 2.如果已经卖完不在请求redis，请求设置的第二级jvm缓存
-        if (productSoldOutMap.get(goShopSeckillDto.getProductId()) != null) {
+        if (getProductSoldOutMap().get(goShopSeckillDto.getProductId()) != null) {
             return new Result<>("商品已被抢光了!");
         }
         // 3.判断是否活动过期或者是活动还没开始
@@ -308,11 +363,24 @@ public class ShopSecKillController extends BaseController {
             return new Result<>("您已到达抢购上限!");
         }
         // 5.扣减库存并返回库存是否是大于0
-        if (this.stringRedisTemplate.opsForValue().decrement(goShopSeckillDto.getProductId().toString()) < 0) {
+        Long stock = this.stringRedisTemplate.opsForValue().decrement(goShopSeckillDto.getProductId().toString());
+        if (stock <= 0) {
+            if(stock != 0){
+                this.stringRedisTemplate.opsForValue().increment(goShopSeckillDto.getProductId().toString());
+                return new Result<>("商品已被抢光了!");
+            }
             // 设置第二级缓存标志
             productSoldOutMap.put(goShopSeckillDto.getProductId(), true);
-            this.stringRedisTemplate.opsForValue().increment(goShopSeckillDto.getProductId().toString());
-            return new Result<>("商品已被抢光了!");
+            // 设置zookeeper的节点监听
+            String zkSoldOutProductPath = CoreConstant.getZKSoldOutProductPath(goShopSeckillDto.getProductId());
+            // 如果是空的设置节点，不是空的把节点变成true
+            if (zooKeeper.exists(zkSoldOutProductPath,true) == null){
+                zooKeeper.create(zkSoldOutProductPath,"true".getBytes(),ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+            }else if(new String(zooKeeper.getData(zkSoldOutProductPath, true, new Stat())).equals("false")){
+                zooKeeper.setData(CoreConstant.getZKSoldOutProductPath(goShopSeckillDto.getProductId()),"true".getBytes(),-1);
+            }
+            // 监听zk售完标记节点
+            zooKeeper.exists(zkSoldOutProductPath,true);
         }
         try {
             // 6.MQ异步创建订单
@@ -320,8 +388,13 @@ public class ShopSecKillController extends BaseController {
         } catch (Exception e) {
             // 消息发送出现异常还原库存
             this.stringRedisTemplate.opsForValue().increment(goShopSeckillDto.getProductId().toString());
+            // 移除售完的缓存节点
             if (productSoldOutMap.get(goShopSeckillDto.getProductId()) != null) {
                 productSoldOutMap.remove(goShopSeckillDto.getProductId());
+            }
+            // 变化zookeeper的值同步所有服务的售完节点
+            if (zooKeeper.exists(CoreConstant.getZKSoldOutProductPath(goShopSeckillDto.getProductId()),true) != null){
+                zooKeeper.setData(CoreConstant.getZKSoldOutProductPath(goShopSeckillDto.getProductId()),"false".getBytes(),-1);
             }
             throw new PochiException("秒杀失败!");
         }
