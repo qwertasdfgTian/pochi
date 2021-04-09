@@ -70,11 +70,11 @@
                 <version>${fastdfs.version}</version>
             </dependency>
             <!--shiro集成redis的包-->
-            <dependency>
-                <groupId>org.crazycake</groupId>
-                <artifactId>shiro-redis</artifactId>
-                <version>${shiro-redis.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.crazycake</groupId>-->
+<!--                <artifactId>shiro-redis</artifactId>-->
+<!--                <version>${shiro-redis.version}</version>-->
+<!--            </dependency>-->
 
             <!-- fastjson -->
             <dependency>

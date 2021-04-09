@@ -34,7 +34,7 @@ public class ZookeeperWatcher implements Watcher, ApplicationContextAware {
 
                 try{
                     if (zooKeeper.exists(CoreConstant.ZK_PRODUCT_SOLD_OUT_FLAG,false) == null){
-                        zooKeeper.create(CoreConstant.ZK_PRODUCT_SOLD_OUT_FLAG,"".getBytes(),ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+                        zooKeeper.create(CoreConstant.ZK_PRODUCT_SOLD_OUT_FLAG,"".getBytes(),ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
                     }
                 }catch (Exception e){
                     e.printStackTrace();

@@ -1,12 +1,21 @@
 #端口
 server:
-  port: 8090
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+    max-connections: 50000
+    ## 最大工作线程数，默认200。（4核8g内存，线程数经验值800，操作系统做线程之间的切换调度是有系统开销的，所以不是越多越好。)
+    max-threads: 5000
+    ## 等待队列长度，默认100。
+    accept-count: 10000
+    ## 最小工作空闲线程数，默认10。（适当增大一些，以便应对突然增长的访问量）
+    min-spare-threads: 1000
 #spring的配置
 spring:
   #数据源的配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://101.200.224.175:3306/Pochi?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://101.200.224.175:8066/TESTDB?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     username: root
     password: 123456
     #注入数据源的类型   默认的为HikariDataSource
@@ -39,11 +48,28 @@ spring:
         #acknowledge-mode: auto #自动签收 这个是默认行为
       direct:
         acknowledge-mode: manual #设置直连交互机的签收类型
-  #配置redis
+  #配置redis就集群
   redis:
-    port: 6390
-    host: 101.200.224.175
-    password: 123456
+    timeout: 6000ms
+    password:
+    cluster:
+      max-redirects: 3  # 获取失败 最大重定向次数
+      nodes:
+        - 101.200.224.175:7000
+        - 101.200.224.175:7001
+        - 101.200.224.175:7002
+        - 101.200.224.175:7003
+        - 101.200.224.175:7004
+        - 101.200.224.175:7005
+    jedis:
+      pool:
+        max-active: 10000  #连接池最大连接数（使用负值表示没有限制）
+        max-idle: 1000 # 连接池中的最大空闲连接
+        min-idle: 50 # 连接池中的最小空闲连接
+        max-wait: -1ms # 连接池最大阻塞等待时间（使用负值表示没有限制）
+#      port: 6390
+#      host: 101.200.224.175
+#      password: 123456
   mvc:
     date-format: yyyy-MM-dd HH:mm:ss
   jackson:

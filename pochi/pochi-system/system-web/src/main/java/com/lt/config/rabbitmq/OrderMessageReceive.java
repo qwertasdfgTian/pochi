@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import springfox.documentation.spring.web.json.Json;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class OrderMessageReceive {
     private ShopSeckillService shopSeckillService;
 
     @RabbitListener(queuesToDeclare = @Queue("orderqueue"))
-    public void onMessage(String goShopSeckillDto, Message message, Channel channel){
+    public void onMessage(String goShopSeckillDto, Message message, Channel channel) throws IOException {
         try {
             System.out.println("欢迎来到新世界=================");
             // 消息的投递Id
