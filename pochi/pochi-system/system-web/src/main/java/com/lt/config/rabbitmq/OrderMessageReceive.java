@@ -1,6 +1,8 @@
 package com.lt.config.rabbitmq;
 
 import com.alibaba.fastjson.JSON;
+import com.lt.constant.CoreConstant;
+import com.lt.controller.marketing.ShopSecKillController;
 import com.lt.dto.GoShopSeckillDto;
 import com.lt.dto.OrderProductDto;
 import com.lt.enums.OrderStateEnum;
@@ -14,6 +16,8 @@ import com.lt.service.ShopSeckillService;
 import com.lt.utils.DateUtils;
 import com.rabbitmq.client.Channel;
 import org.apache.dubbo.config.annotation.Reference;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.ZooKeeper;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessagePostProcessor;
@@ -21,6 +25,7 @@ import org.springframework.amqp.rabbit.annotation.Queue;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import springfox.documentation.spring.web.json.Json;
 
@@ -42,9 +47,13 @@ public class OrderMessageReceive {
     private RabbitTemplate rabbitTemplate;
     @Reference
     private ShopSeckillService shopSeckillService;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private ZooKeeper zooKeeper;
 
     @RabbitListener(queuesToDeclare = @Queue("orderqueue"))
-    public void onMessage(String goShopSeckillDto, Message message, Channel channel) throws IOException {
+    public void onMessage(String goShopSeckillDto, Message message, Channel channel) throws KeeperException, InterruptedException {
         try {
             System.out.println("欢迎来到新世界=================");
             // 消息的投递Id
@@ -71,6 +80,17 @@ public class OrderMessageReceive {
 
             System.out.println("签收成功的时间是："+ DateUtils.newDateTime());
         }catch (Exception e){
+            GoShopSeckillDto shopSeckill = JSON.parseObject(goShopSeckillDto, GoShopSeckillDto.class);
+            // 消息发送出现异常还原库存
+            this.stringRedisTemplate.opsForValue().increment(shopSeckill.getProductId().toString());
+            // 移除售完的缓存节点
+            if (ShopSecKillController.getProductSoldOutMap().get(shopSeckill.getProductId()) != null) {
+                ShopSecKillController.getProductSoldOutMap().remove(shopSeckill.getProductId());
+            }
+            // 变化zookeeper的值同步所有服务的售完节点
+            if (zooKeeper.exists(CoreConstant.getZKSoldOutProductPath(shopSeckill.getProductId()),true) != null){
+                zooKeeper.setData(CoreConstant.getZKSoldOutProductPath(shopSeckill.getProductId()),"false".getBytes(),-1);
+            }
             throw new PochiException("您的秒杀订单出现异常，抢购失败！");
         }
     }
